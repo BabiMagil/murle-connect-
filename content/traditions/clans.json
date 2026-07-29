@@ -1,0 +1,12 @@
+{
+  "id": "clans",
+  "title": "Clans",
+  "icon": "git-network-outline",
+  "image": "https://images.unsplash.com/photo-1524230572899-a752b3835840?w=1200&q=80",
+  "summary": "The lineage networks that connect families across communities.",
+  "body": [
+    "Clans form the backbone of Murle social organization, linking families across different villages through shared ancestry. Clan membership shapes obligations of hospitality, cooperation, and support during major life events.",
+    "Marriage customs are closely tied to clan identity, with certain marriage patterns encouraged or avoided depending on clan relationships. This helps maintain broad social ties across the wider community.",
+    "Clan elders often play a quiet but important role in mediating disputes and preserving genealogical knowledge passed down through oral history."
+  ]
+}

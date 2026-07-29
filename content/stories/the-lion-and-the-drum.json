@@ -1,0 +1,16 @@
+{
+  "id": "the-lion-and-the-drum",
+  "category": "stories",
+  "title": "The Lion and the Drum",
+  "subtitle": "A legend about courage and cleverness",
+  "image": "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=1200&q=80",
+  "publishedAt": "2024-03-18",
+  "tags": ["legend", "courage", "folktale"],
+  "moral": "A calm mind can outsmart a fearsome threat.",
+  "body": [
+    "A great lion once terrorized a village, frightening the herders and keeping families awake through the night. None dared face the beast directly, for his roar alone could shake the ground.",
+    "A young herder, known more for his quick thinking than his strength, devised a plan. He hollowed out a large drum and hid within a nearby thicket, waiting for the lion's approach.",
+    "When the lion neared, the herder struck the drum with a thunderous rhythm unlike anything the lion had heard before. Startled and confused, the lion fled deep into the hills, never to trouble the village again.",
+    "The village celebrated not the herder's muscles, but his ingenuity — a reminder that courage often wears the face of a clear and steady mind."
+  ]
+}

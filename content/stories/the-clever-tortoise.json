@@ -1,0 +1,17 @@
+{
+  "id": "the-clever-tortoise",
+  "category": "stories",
+  "title": "The Clever Tortoise",
+  "subtitle": "A folktale about wit over strength",
+  "image": "https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?w=1200&q=80",
+  "publishedAt": "2024-03-10",
+  "tags": ["folktale", "children", "wisdom"],
+  "moral": "Cleverness can overcome even the greatest strength.",
+  "body": [
+    "Long ago, when animals still spoke as people do, a great drought settled over the land. The animals gathered to decide how they would share the little water left in the last remaining pool.",
+    "The elephant, proud of his size, declared that only the strongest should drink first. The other animals grumbled but dared not argue with him.",
+    "The tortoise, small and slow, said nothing at first. Instead, he quietly dug a narrow channel from the pool to a hidden hollow behind the rocks, where he stored enough water for the smaller animals to share fairly.",
+    "When the elephant discovered the hidden store, he was furious, but the other animals pointed out that the tortoise's plan had kept everyone alive through the driest days. Even the elephant had to admit that wisdom sometimes outweighs strength.",
+    "From that day, the animals remembered the tortoise not for his size, but for his quiet cleverness — a lesson still told to children today."
+  ]
+}

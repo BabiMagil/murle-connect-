@@ -1,0 +1,16 @@
+{
+  "id": "why-the-river-bends",
+  "category": "stories",
+  "title": "Why the River Bends",
+  "subtitle": "A tale explaining a familiar landmark",
+  "image": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=80",
+  "publishedAt": "2024-04-01",
+  "tags": ["legend", "nature", "folktale"],
+  "moral": "Even the land remembers the choices of those who came before.",
+  "body": [
+    "Long before the elders' elders were born, the great river ran in a straight line across the plain. It was said that two brothers once quarreled over where to build their homes along its banks.",
+    "Unwilling to settle the dispute peacefully, each brother called upon the river itself to favor his side. According to the story, the river listened to both pleas and, refusing to choose between them, bent gently around a hill to reach them both.",
+    "From that day, the river's curve marked the place where two families learned that compromise could satisfy everyone better than stubborn pride.",
+    "Children are told this story whenever they pass the bend, a living reminder carved into the landscape itself."
+  ]
+}
