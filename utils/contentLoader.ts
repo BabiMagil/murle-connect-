@@ -8,7 +8,14 @@ import {
 
 
 import magilBabiNgathin from "@/content/history/magil-babi-ngathin-part-one.json";
-import ArticleOne from "@/content/history/01-the-origin-of-the-murle.json";
+import article01 from "@/content/history/01-the-origin-of-the-murle.json";
+import article02 from "@/content/history/02-murle-ethnic-identity-and-language.json";
+import article03 from "@/content/history/03-murle-migration-and-movement.json";
+import article04 from "@/content/history/04-murle-settlement-in-pibor.json";
+import article05 from "@/content/history/05-murle-clans-and-social-organization.json";
+import article06 from "@/content/history/06-murle-leadership-and-age-sets.json";
+import article07 from "@/content/history/07-murle-family-life-and-kinship.json";
+
 import babimagil from "@/content/culture/babi-ngerthimagil.json";
 
 
@@ -32,7 +39,14 @@ import proverbsData from "@/content/proverbs/proverbs.json";
 
 const historyArticles: Article[] = [
   magilBabiNgathin,
-  ArticleOne
+  article01,
+  article02,
+  article03,
+  article04,
+  article05,
+  article06,
+  article07,
+  
 ];
 
 
