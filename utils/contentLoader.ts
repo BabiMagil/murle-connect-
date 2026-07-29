@@ -7,15 +7,8 @@ import {
 } from "@/types/content";
 
 
-import historyLeaders from "@/content/history/leaders-of-old.json";
-import historyMigration from "@/content/history/the-great-migration.json";
-import historyOrigins from "@/content/history/origins-of-the-murle.json";
-import historyMurleOrigin from "@/content/history/murle-history-origins-001.json";
 import magilBabiNgathin from "@/content/history/magil-babi-ngathin-part-one.json";
-
-import cultureDress from "@/content/culture/traditional-dress.json";
-import cultureMusic from "@/content/culture/music-and-dance.json";
-import cultureFood from "@/content/culture/food-and-daily-life.json";
+import ArticleOne from "@/content/history/01-the-origin-of-the-murle.json";
 import babimagil from "@/content/culture/babi-ngerthimagil.json";
 
 
@@ -38,18 +31,13 @@ import proverbsData from "@/content/proverbs/proverbs.json";
 // ARTICLES
 
 const historyArticles: Article[] = [
-  historyOrigins,
-  historyMigration,
-  historyLeaders,
-  historyMurleOrigin,
-  magilBabiNgathin
+  magilBabiNgathin,
+  ArticleOne
 ];
 
 
 const cultureArticles: Article[] = [
-  cultureDress,
-  cultureMusic,
-  cultureFood,
+
   babimagil
 ];
 
