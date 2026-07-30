@@ -7,7 +7,6 @@ import {
 } from "@/types/content";
 
 
-import magilBabiNgathin from "@/content/history/magil-babi-ngathin-part-one.json";
 import article01 from "@/content/history/01-the-origin-of-the-murle.json";
 import article02 from "@/content/history/02-murle-ethnic-identity-and-language.json";
 import article03 from "@/content/history/03-murle-migration-and-movement.json";
@@ -15,6 +14,24 @@ import article04 from "@/content/history/04-murle-settlement-in-pibor.json";
 import article05 from "@/content/history/05-murle-clans-and-social-organization.json";
 import article06 from "@/content/history/06-murle-leadership-and-age-sets.json";
 import article07 from "@/content/history/07-murle-family-life-and-kinship.json";
+import article08 from "@/content/history/08-murle-marriage-customs-and-bride-wealth.json";
+import article09 from "@/content/history/09-murle-childhood-and-traditional-education.json";
+import article10 from "@/content/history/10-murle-cattle-and-the-pastoral-way-of-life.json";
+import article11 from "@/content/history/11-hunting-fishing-and-agriculture.json";
+import article12 from "@/content/history/12-murle-traditional-religion-and-spiritual-beliefs.json";
+import article13 from "@/content/history/13-traditional-law-and-conflict-resolution.json";
+import article14 from "@/content/history/14-murle-women-in-history-and-society.json";
+import article15 from "@/content/history/15-murle-men-and-community-responsibilities.json";
+import article16 from "@/content/history/16-murle-traditional-housing-and-village-life.json";
+import article17 from "@/content/history/17-murle-food-and-daily-life-through-history.json";
+import article18 from "@/content/history/18-murle-songs-dances-and-oral-traditions.json";
+import article19 from "@/content/history/19-murle-relations-with-neighboring-communities.json";
+import article20 from "@/content/history/20-the-colonial-period-in-murle-land.json";
+import article21 from "@/content/history/21-the-first-sudanese-civil-war-and-the-murle.json";
+import article22 from "@/content/history/22-the-second-sudanese-civil-war-and-the-murle.json";
+import article23 from "@/content/history/23-the-murle-and-the-independence-of-south-sudan.json";
+import article24 from "@/content/history/24-modern-challenges-facing-the-murle.json";
+import article25 from "@/content/history/25-preserving-murle-history-and-heritage.json";
 
 import babimagil from "@/content/culture/babi-ngerthimagil.json";
 
@@ -24,12 +41,29 @@ import storiesLion from "@/content/stories/the-lion-and-the-drum.json";
 import storiesRiver from "@/content/stories/why-the-river-bends.json";
 
 
-import tradAgeSets from "@/content/traditions/age-sets.json";
-import tradClans from "@/content/traditions/clans.json";
-import tradLeadership from "@/content/traditions/leadership.json";
-import tradFamily from "@/content/traditions/family-structure.json";
-import tradMarriage from "@/content/traditions/marriage-customs.json";
-import tradValues from "@/content/traditions/community-values.json";
+// =======================
+// TRADITIONS ARTICLES
+// =======================
+
+import tradition01 from "@/content/traditions/01-murle-clans-kidongwa-and-traditional-authority.json";
+import tradition02 from "@/content/traditions/02-murle-age-sets-buul-and-generations.json";
+import tradition03 from "@/content/traditions/03-murle-red-chiefs-alan-ci-merik-and-leadership.json";
+import tradition04 from "@/content/traditions/04-murle-birth-and-childhood-traditions.json";
+import tradition05 from "@/content/traditions/05-murle-naming-traditions.json";
+import tradition06 from "@/content/traditions/06-murle-initiation-and-coming-of-age.json";
+import tradition07 from "@/content/traditions/07-murle-marriage-customs-and-bride-wealth.json";
+import tradition08 from "@/content/traditions/08-murle-family-life-and-parenthood.json";
+import tradition09 from "@/content/traditions/09-murle-cattle-and-pastoral-traditions.json";
+import tradition10 from "@/content/traditions/10-murle-food-and-hospitality-traditions.json";
+import tradition11 from "@/content/traditions/11-murle-clothing-ornaments-and-body-decoration.json";
+import tradition12 from "@/content/traditions/12-murle-music-dance-and-celebrations.json";
+import tradition13 from "@/content/traditions/13-murle-hunting-fishing-and-survival-skills.json";
+import tradition14 from "@/content/traditions/14-murle-traditional-leadership-and-governance.json";
+import tradition15 from "@/content/traditions/15-murle-elders-and-the-preservation-of-knowledge.json";
+import tradition16 from "@/content/traditions/16-murle-customary-laws-and-conflict-resolution.json";
+import tradition17 from "@/content/traditions/17-murle-spiritual-beliefs-and-sacred-practices.json";
+import tradition19 from "@/content/traditions/19-murle-seasonal-life-and-the-natural-environment.json";
+import tradition20 from "@/content/traditions/20-preserving-murle-traditions-for-future-generations.json";
 
 
 import proverbsData from "@/content/proverbs/proverbs.json";
@@ -38,7 +72,6 @@ import proverbsData from "@/content/proverbs/proverbs.json";
 // ARTICLES
 
 const historyArticles: Article[] = [
-  magilBabiNgathin,
   article01,
   article02,
   article03,
@@ -46,7 +79,24 @@ const historyArticles: Article[] = [
   article05,
   article06,
   article07,
-  
+  article08,
+  article09,
+  article10,
+  article11,
+  article12,
+  article13,
+  article14,
+  article15,
+  article16,
+  article17,
+  article18,
+  article19,
+  article20,
+  article21,
+  article22,
+  article23,
+  article24,
+  article25
 ];
 
 
@@ -66,12 +116,25 @@ const storyArticles: Article[] = [
 // TRADITIONS
 
 export const traditions: TraditionArticle[] = [
-  tradAgeSets,
-  tradClans,
-  tradLeadership,
-  tradFamily,
-  tradMarriage,
-  tradValues
+  tradition01,
+  tradition02,
+  tradition03,
+  tradition04,
+  tradition05,
+  tradition06,
+  tradition07,
+  tradition08,
+  tradition09,
+  tradition10,
+  tradition11,
+  tradition12,
+  tradition13,
+  tradition14,
+  tradition15,
+  tradition16,
+  tradition17,
+  tradition19,
+  tradition20
 ];
 
 
