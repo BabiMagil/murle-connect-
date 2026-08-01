@@ -1,6 +1,6 @@
 import React from "react";
 import { ArticleListScreen } from "@/components/ArticleListScreen";
-import { getArticles } from "@/utils/contentLoader";
+import { getArticlesByCategory } from "@/utils/contentLoader";
 
 export default function CultureScreen() {
   return (
@@ -8,7 +8,7 @@ export default function CultureScreen() {
       title="Culture"
       subtitle="Dress, music, food, and daily life"
       category="culture"
-      articles={getArticles("culture")}
+      articles={getArticlesByCategory("culture")}
     />
   );
 }

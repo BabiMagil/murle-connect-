@@ -1,202 +1,263 @@
 import React from "react";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
+  Text,
+  ScrollView,
+  Image,
+  StyleSheet
 } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Markdown from "react-native-markdown-display";
-
-import { ReadingActions } from "@/components/ReadingActions";
-import { RelatedArticles } from "@/components/RelatedArticles";
-import { useAppTheme } from "@/hooks/useAppTheme";
-import { spacing, typography } from "@/constants/theme";
-import { getArticleById, getArticles } from "@/utils/contentLoader";
-import { estimateReadingTime } from "@/utils/readingTime";
-import { ArticleCategory } from "@/types/content";
+import { useLocalSearchParams } from "expo-router";
+import { getArticleById } from "@/utils/contentLoader";
 
 
-export default function ArticleDetailScreen() {
+export default function ArticleDetail() {
 
-  const {
-    category,
-    id
-  } = useLocalSearchParams<{
-    category: ArticleCategory;
-    id: string;
-  }>();
+  const { id } = useLocalSearchParams();
 
-
-  const theme = useAppTheme();
-  const router = useRouter();
-
-
-  const article = getArticleById(
-    category,
-    id
-  );
+  const article = getArticleById(String(id));
 
 
   if (!article) {
 
     return (
-
-      <SafeAreaView
-        style={[
-          styles.safe,
-          {
-            backgroundColor:
-              theme.background
-          }
-        ]}
-      >
-
-        <Text
-          style={{
-            color: theme.text,
-            padding: spacing.lg
-          }}
-        >
-          Article not found.
+      <View style={styles.container}>
+        <Text style={styles.error}>
+          Article not found
         </Text>
-
-      </SafeAreaView>
-
+      </View>
     );
 
   }
 
 
 
-  /*
-   Convert article body into Markdown
+  function renderParagraph(text:any, index:number){
 
-   Supports:
-
-   OLD:
-   [
-    "paragraph",
-    "paragraph"
-   ]
-
-
-   NEW:
-   [
-    {
-      heading:"",
-      paragraphs:[]
+    if(typeof text !== "string"){
+      return null;
     }
-   ]
-
-  */
 
 
-  const markdownBody = Array.isArray(article.body)
+    return (
+      <Text
+        key={index}
+        style={styles.paragraph}
+      >
+        {text}
+      </Text>
+    );
 
-    ? article.body
-        .map((section:any)=>{
-
-
-          // old format
-
-          if(typeof section === "string"){
-
-            return section;
-
-          }
+  }
 
 
 
-          // new format
+
+  function renderBody(){
+
+    const body = article.body;
+
+
+    if(!body){
+      return null;
+    }
+
+
+
+    // SIMPLE TEXT ARTICLE
+
+    if(typeof body === "string"){
+
+      return (
+
+        <Text style={styles.paragraph}>
+          {body}
+        </Text>
+
+      );
+
+    }
+
+
+
+
+    // SECTION FORMAT
+    // [
+    //  {
+    //    heading:"",
+    //    paragraphs:[]
+    //  }
+    // ]
+
+    if(Array.isArray(body)){
+
+
+      return body.map(
+        (section:any,index:number)=>{
+
 
           if(
-            section.heading &&
-            Array.isArray(section.paragraphs)
+            typeof section === "object" &&
+            section.heading
           ){
+
 
             return (
 
-`## ${section.heading}
+              <View
+                key={index}
+                style={styles.section}
+              >
 
-${section.paragraphs.join("\n\n")}`
+
+                <Text style={styles.heading}>
+                  {section.heading}
+                </Text>
+
+
+
+                {
+                  Array.isArray(section.paragraphs)
+                  &&
+                  section.paragraphs.map(
+                    (paragraph:any,pIndex:number)=>
+                      renderParagraph(
+                        paragraph,
+                        pIndex
+                      )
+                  )
+                }
+
+
+              </View>
 
             );
 
           }
 
 
-          return "";
 
-        })
-        .join("\n\n")
-
-
-    : "";
+          return renderParagraph(
+            section,
+            index
+          );
 
 
+        }
+      );
 
-
-
-  /*
-    Reading time converter
-  */
-
-
-  const readingText = Array.isArray(article.body)
-
-    ? article.body
-        .map((section:any)=>{
-
-
-          if(typeof section === "string"){
-
-            return section;
-
-          }
-
-
-          if(
-            section.paragraphs &&
-            Array.isArray(section.paragraphs)
-          ){
-
-            return section.paragraphs.join(" ");
-
-          }
-
-
-          return "";
-
-
-        })
-        .join(" ")
-
-
-    : "";
-
-
-
-  const minutes =
-    article.readingTimeMinutes ??
-    estimateReadingTime(readingText);
+    }
 
 
 
 
 
-  const related =
-    getArticles(category)
-      .filter(
-        item =>
-          item.id !== article.id
-      )
-      .slice(0,5);
+    // OBJECT FORMAT
+
+    if(typeof body === "object"){
+
+
+      return Object.entries(body).map(
+        ([key,value]:any,index:number)=>(
+
+
+          <View
+            key={index}
+            style={styles.section}
+          >
+
+
+            <Text style={styles.heading}>
+              {key}
+            </Text>
+
+
+
+            {
+              Array.isArray(value)
+
+              ?
+
+              value.map(
+                (item:any,i:number)=>{
+
+
+                  if(typeof item==="object"){
+
+                    return (
+
+                      <View key={i}>
+
+                        {
+                          item.heading &&
+                          <Text style={styles.heading}>
+                            {item.heading}
+                          </Text>
+                        }
+
+
+                        {
+                          item.paragraphs?.map(
+                            (p:string,pIndex:number)=>
+                              renderParagraph(
+                                p,
+                                pIndex
+                              )
+                          )
+                        }
+
+
+                      </View>
+
+                    );
+
+                  }
+
+
+                  return renderParagraph(
+                    item,
+                    i
+                  );
+
+
+                }
+              )
+
+
+              :
+
+              typeof value==="string"
+
+              ?
+
+              <Text style={styles.paragraph}>
+                {value}
+              </Text>
+
+
+              :
+
+              null
+
+            }
+
+
+
+          </View>
+
+
+        )
+      );
+
+
+    }
+
+
+
+    return null;
+
+
+  }
 
 
 
@@ -204,452 +265,118 @@ ${section.paragraphs.join("\n\n")}`
 
   return (
 
-    <SafeAreaView
-      style={[
-        styles.safe,
-        {
-          backgroundColor:
-            theme.background
-        }
-      ]}
-      edges={["top"]}
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
     >
 
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-      >
+      {
+        article.image &&
 
+        <Image
 
-        <View>
+          source={{
+            uri:article.image
+          }}
 
+          style={styles.image}
 
-          <Image
-            source={{
-              uri: article.image
-            }}
-            style={styles.image}
-          />
+        />
 
+      }
 
 
-          <TouchableOpacity
 
-            style={[
-              styles.backButton,
-              {
-                backgroundColor:
-                "rgba(0,0,0,0.4)"
-              }
-            ]}
 
-            onPress={() =>
-              router.back()
-            }
+      <Text style={styles.title}>
+        {article.title}
+      </Text>
 
-          >
 
-            <Ionicons
-              name="chevron-back"
-              size={22}
-              color="#fff"
-            />
 
-          </TouchableOpacity>
+      {
+        article.subtitle &&
 
+        <Text style={styles.subtitle}>
+          {article.subtitle}
+        </Text>
 
-        </View>
+      }
 
 
 
 
+      {renderBody()}
 
-        <View
-          style={styles.content}
-        >
 
 
-          <Text
-            style={[
-              styles.label,
-              {
-                color:
-                theme.primary
-              }
-            ]}
-          >
-
-            {article.category.toUpperCase()}
-
-          </Text>
-
-
-
-
-
-          <Text
-            style={[
-              styles.title,
-              {
-                color:
-                theme.text
-              }
-            ]}
-          >
-
-            {article.title}
-
-          </Text>
-
-
-
-
-
-          {
-            article.subtitle && (
-
-              <Text
-                style={[
-                  styles.subtitle,
-                  {
-                    color:
-                    theme.textMuted
-                  }
-                ]}
-              >
-
-                {article.subtitle}
-
-              </Text>
-
-            )
-          }
-
-
-
-
-
-
-          <View
-            style={styles.metaRow}
-          >
-
-            <Ionicons
-              name="time-outline"
-              size={14}
-              color={theme.textMuted}
-            />
-
-
-            <Text
-              style={[
-                styles.meta,
-                {
-                  color:
-                  theme.textMuted
-                }
-              ]}
-            >
-
-              {minutes} min read
-
-            </Text>
-
-
-          </View>
-
-
-
-
-
-
-          <ReadingActions
-
-            bookmark={{
-
-              key:
-              `${article.category}:${article.id}`,
-
-              section:
-              article.category,
-
-              id:
-              article.id,
-
-              title:
-              article.title,
-
-              subtitle:
-              article.subtitle,
-
-              image:
-              article.image,
-
-              route:
-              `/article/${article.category}/${article.id}`
-
-            }}
-
-
-            shareTitle={
-              article.title
-            }
-
-
-            shareMessage={
-              `${article.title}\n\nRead on Murle Connect`
-            }
-
-          />
-
-
-
-
-
-
-
-
-          <Markdown
-
-            style={{
-
-              body:{
-                color:theme.text,
-                fontSize:16,
-                lineHeight:26
-              },
-
-
-              heading2:{
-
-                color:"#ff9800",
-
-                fontSize:24,
-
-                fontWeight:"800",
-
-                marginTop:25,
-
-                marginBottom:12,
-
-                textDecorationLine:
-                "underline"
-
-              },
-
-
-              paragraph:{
-
-                color:theme.text,
-
-                marginBottom:15
-
-              },
-
-
-              strong:{
-
-                fontWeight:"700"
-
-              }
-
-
-            }}
-
-          >
-
-            {markdownBody}
-
-          </Markdown>
-
-
-
-
-
-
-
-
-          {
-            "moral" in article &&
-            article.moral && (
-
-              <View
-                style={[
-                  styles.moralBox,
-                  {
-                    backgroundColor:
-                    theme.surfaceAlt
-                  }
-                ]}
-              >
-
-                <Text
-                  style={[
-                    styles.moralLabel,
-                    {
-                      color:
-                      theme.primary
-                    }
-                  ]}
-                >
-
-                  MORAL OF THE STORY
-
-                </Text>
-
-
-                <Text
-                  style={[
-                    styles.moralText,
-                    {
-                      color:
-                      theme.text
-                    }
-                  ]}
-                >
-
-                  {article.moral}
-
-                </Text>
-
-
-              </View>
-
-            )
-          }
-
-
-
-
-
-          <RelatedArticles
-            articles={related}
-          />
-
-
-
-        </View>
-
-
-
-      </ScrollView>
-
-
-    </SafeAreaView>
+    </ScrollView>
 
   );
 
+
 }
-
-
 
 
 
 
 const styles = StyleSheet.create({
 
-safe:{
-flex:1
+container:{
+  flex:1,
+  padding:20,
+  backgroundColor:"#fff"
+},
+
+
+error:{
+  fontSize:18,
+  textAlign:"center",
+  marginTop:50
 },
 
 
 image:{
-width:"100%",
-height:280
-},
-
-
-backButton:{
-
-position:"absolute",
-
-top:spacing.md,
-
-left:spacing.md,
-
-width:40,
-
-height:40,
-
-borderRadius:20,
-
-alignItems:"center",
-
-justifyContent:"center"
-
-},
-
-
-content:{
-padding:spacing.lg
-},
-
-
-label:{
-...typography.label,
-marginBottom:6
+  width:"100%",
+  height:230,
+  borderRadius:15,
+  marginBottom:20
 },
 
 
 title:{
-...typography.title,
-fontSize:26,
-marginBottom:6
+  fontSize:28,
+  fontWeight:"700",
+  marginBottom:12
 },
 
 
 subtitle:{
-...typography.body,
-marginBottom:spacing.sm
+  fontSize:17,
+  color:"#666",
+  marginBottom:25
 },
 
 
-metaRow:{
-
-flexDirection:"row",
-
-alignItems:"center",
-
-gap:6,
-
-marginBottom:spacing.lg
-
+section:{
+  marginBottom:25
 },
 
 
-meta:{
-...typography.caption
+heading:{
+  fontSize:22,
+  fontWeight:"700",
+  marginBottom:12
 },
 
 
-moralBox:{
-
-borderRadius:16,
-
-padding:spacing.md,
-
-marginTop:spacing.sm
-
-},
-
-
-moralLabel:{
-
-...typography.label,
-
-fontSize:11,
-
-marginBottom:6
-
-},
-
-
-moralText:{
-
-...typography.body,
-
-fontStyle:"italic"
-
+paragraph:{
+  fontSize:16,
+  lineHeight:27,
+  marginBottom:15,
+  color:"#333"
 }
+
 
 });
