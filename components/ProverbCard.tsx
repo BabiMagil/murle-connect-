@@ -1,62 +1,133 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
+
 import { useRouter } from "expo-router";
-import { Card } from "./Card";
-import { useAppTheme } from "@/hooks/useAppTheme";
 import { spacing, typography } from "@/constants/theme";
-import { Proverb } from "@/types/content";
 
-interface ProverbCardProps {
-  proverb: Proverb;
-  compact?: boolean;
+
+export function ProverbCard({ proverb }: any){
+
+const router = useRouter();
+
+
+return (
+
+<TouchableOpacity
+
+style={styles.card}
+
+onPress={()=>
+
+router.push(
+
+`/article/proverbs/${proverb.id}`
+
+)
+
 }
 
-export function ProverbCard({ proverb, compact = false }: ProverbCardProps) {
-  const theme = useAppTheme();
-  const router = useRouter();
+>
 
-  return (
-    <TouchableOpacity
-      activeOpacity={0.85}
-      onPress={() => router.push(`/proverbs/${proverb.id}` as any)}
-      style={compact ? styles.compactWrap : undefined}
-    >
-      <Card style={{ backgroundColor: theme.surfaceAlt, borderColor: "transparent" }}>
-        <View style={styles.headerRow}>
-          <Ionicons name="chatbox-ellipses-outline" size={16} color={theme.primary} />
-          <Text style={[styles.title, { color: theme.primary }]}>{proverb.title}</Text>
-        </View>
-        <Text style={[styles.murle, { color: theme.text }]} numberOfLines={compact ? 2 : undefined}>
-          “{proverb.murle}”
-        </Text>
-        <Text style={[styles.english, { color: theme.textMuted }]} numberOfLines={compact ? 2 : undefined}>
-          {proverb.english}
-        </Text>
-      </Card>
-    </TouchableOpacity>
-  );
+
+<Text style={styles.title}>
+
+{proverb.title}
+
+</Text>
+
+
+
+{proverb.murle ? (
+
+<Text style={styles.murle}>
+
+{proverb.murle}
+
+</Text>
+
+):null}
+
+
+
+
+{proverb.english ? (
+
+<Text style={styles.body}>
+
+{proverb.english}
+
+</Text>
+
+):null}
+
+
+
+
+{proverb.explanation ? (
+
+<Text style={styles.body}>
+
+{proverb.explanation}
+
+</Text>
+
+):null}
+
+
+
+</TouchableOpacity>
+
+);
+
 }
+
+
 
 const styles = StyleSheet.create({
-  compactWrap: {
-    width: 260,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: spacing.sm,
-  },
-  title: {
-    ...typography.label,
-  },
-  murle: {
-    ...typography.heading,
-    fontStyle: "italic",
-    marginBottom: 6,
-  },
-  english: {
-    ...typography.bodyMuted,
-  },
+
+card:{
+
+padding:spacing.lg,
+
+borderRadius:12,
+
+backgroundColor:"#ffffff",
+
+},
+
+
+title:{
+
+...typography.title,
+
+marginBottom:spacing.sm
+
+},
+
+
+murle:{
+
+fontSize:18,
+
+fontWeight:"600",
+
+marginBottom:spacing.sm
+
+},
+
+
+body:{
+
+fontSize:15,
+
+lineHeight:22
+
+}
+
+
 });

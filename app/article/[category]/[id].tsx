@@ -13,39 +13,28 @@ import { getArticleById } from "@/utils/contentLoader";
 
 export default function ArticleDetail() {
 
+
   const { id } = useLocalSearchParams();
 
-  const article = getArticleById(String(id));
+
+  const article = getArticleById(
+    String(id)
+  );
 
 
-  if (!article) {
+
+  if(!article){
 
     return (
+
       <View style={styles.container}>
+
         <Text style={styles.error}>
           Article not found
         </Text>
+
       </View>
-    );
 
-  }
-
-
-
-  function renderParagraph(text:any, index:number){
-
-    if(typeof text !== "string"){
-      return null;
-    }
-
-
-    return (
-      <Text
-        key={index}
-        style={styles.paragraph}
-      >
-        {text}
-      </Text>
     );
 
   }
@@ -53,27 +42,36 @@ export default function ArticleDetail() {
 
 
 
-  function renderBody(){
+  function TextBlock({
+    text
+  }:{
+    text:any
+  }){
 
-    const body = article.body;
 
+    if(
+      text === null ||
+      text === undefined ||
+      text === ""
+    ){
 
-    if(!body){
       return null;
+
     }
 
 
 
-    // SIMPLE TEXT ARTICLE
+    if(Array.isArray(text)){
 
-    if(typeof body === "string"){
+      return text.map(
+        (item,index)=>(
 
-      return (
+          <TextBlock
+            key={index}
+            text={item}
+          />
 
-        <Text style={styles.paragraph}>
-          {body}
-        </Text>
-
+        )
       );
 
     }
@@ -81,183 +79,201 @@ export default function ArticleDetail() {
 
 
 
-    // SECTION FORMAT
-    // [
-    //  {
-    //    heading:"",
-    //    paragraphs:[]
-    //  }
-    // ]
+    if(typeof text === "object"){
 
-    if(Array.isArray(body)){
-
-
-      return body.map(
-        (section:any,index:number)=>{
-
-
-          if(
-            typeof section === "object" &&
-            section.heading
-          ){
-
-
-            return (
-
-              <View
-                key={index}
-                style={styles.section}
-              >
-
-
-                <Text style={styles.heading}>
-                  {section.heading}
-                </Text>
-
-
-
-                {
-                  Array.isArray(section.paragraphs)
-                  &&
-                  section.paragraphs.map(
-                    (paragraph:any,pIndex:number)=>
-                      renderParagraph(
-                        paragraph,
-                        pIndex
-                      )
-                  )
-                }
-
-
-              </View>
-
-            );
-
-          }
-
-
-
-          return renderParagraph(
-            section,
-            index
-          );
-
-
-        }
-      );
-
-    }
-
-
-
-
-
-    // OBJECT FORMAT
-
-    if(typeof body === "object"){
-
-
-      return Object.entries(body).map(
-        ([key,value]:any,index:number)=>(
-
+      return Object.entries(text).map(
+        ([key,value]:any)=>(
 
           <View
-            key={index}
+            key={key}
             style={styles.section}
           >
-
 
             <Text style={styles.heading}>
               {key}
             </Text>
 
 
-
-            {
-              Array.isArray(value)
-
-              ?
-
-              value.map(
-                (item:any,i:number)=>{
-
-
-                  if(typeof item==="object"){
-
-                    return (
-
-                      <View key={i}>
-
-                        {
-                          item.heading &&
-                          <Text style={styles.heading}>
-                            {item.heading}
-                          </Text>
-                        }
-
-
-                        {
-                          item.paragraphs?.map(
-                            (p:string,pIndex:number)=>
-                              renderParagraph(
-                                p,
-                                pIndex
-                              )
-                          )
-                        }
-
-
-                      </View>
-
-                    );
-
-                  }
-
-
-                  return renderParagraph(
-                    item,
-                    i
-                  );
-
-
-                }
-              )
-
-
-              :
-
-              typeof value==="string"
-
-              ?
-
-              <Text style={styles.paragraph}>
-                {value}
-              </Text>
-
-
-              :
-
-              null
-
-            }
-
-
+            <TextBlock
+              text={value}
+            />
 
           </View>
 
-
         )
       );
-
 
     }
 
 
 
-    return null;
+
+    return (
+
+      <Text style={styles.paragraph}>
+        {String(text)}
+      </Text>
+
+    );
 
 
   }
+
+
+
+
+
+
+
+  function renderContent(){
+
+
+
+    return (
+
+      <View>
+
+
+        {/* PROVERB ORIGINAL */}
+
+        {
+          article.murle &&
+
+          <View style={styles.section}>
+
+            <Text style={styles.heading}>
+              Murle Proverb
+            </Text>
+
+
+            <Text style={styles.paragraph}>
+              {article.murle}
+            </Text>
+
+          </View>
+
+        }
+
+
+
+
+        {/* ENGLISH TRANSLATION */}
+
+        {
+          article.english &&
+
+          <View style={styles.section}>
+
+            <Text style={styles.heading}>
+              Translation
+            </Text>
+
+
+            <Text style={styles.paragraph}>
+              {article.english}
+            </Text>
+
+          </View>
+
+        }
+
+
+
+
+
+
+        {/* MEANING */}
+
+        {
+          article.meaning &&
+
+          <View style={styles.section}>
+
+            <Text style={styles.heading}>
+              Meaning
+            </Text>
+
+
+            <Text style={styles.paragraph}>
+              {article.meaning}
+            </Text>
+
+          </View>
+
+        }
+
+
+
+
+
+        {/* EXPLANATION */}
+
+        {
+          article.explanation &&
+
+          <View style={styles.section}>
+
+            <Text style={styles.heading}>
+              Explanation
+            </Text>
+
+
+            <Text style={styles.paragraph}>
+              {article.explanation}
+            </Text>
+
+          </View>
+
+        }
+
+
+
+
+
+
+
+        {/* NORMAL ARTICLE BODY */}
+
+        {
+          article.body &&
+
+          <View style={styles.section}>
+
+            <TextBlock
+              text={article.body}
+            />
+
+          </View>
+
+        }
+
+
+
+
+
+
+        {/* CONTENT FALLBACK */}
+
+        {
+          !article.body &&
+          article.content &&
+
+          <TextBlock
+            text={article.content}
+          />
+
+        }
+
+
+
+      </View>
+
+    );
+
+
+  }
+
+
 
 
 
@@ -266,9 +282,13 @@ export default function ArticleDetail() {
   return (
 
     <ScrollView
+
       style={styles.container}
+
       showsVerticalScrollIndicator={false}
+
     >
+
 
 
       {
@@ -289,9 +309,14 @@ export default function ArticleDetail() {
 
 
 
+
       <Text style={styles.title}>
+
         {article.title}
+
       </Text>
+
+
 
 
 
@@ -299,7 +324,9 @@ export default function ArticleDetail() {
         article.subtitle &&
 
         <Text style={styles.subtitle}>
+
           {article.subtitle}
+
         </Text>
 
       }
@@ -307,7 +334,8 @@ export default function ArticleDetail() {
 
 
 
-      {renderBody()}
+
+      {renderContent()}
 
 
 
@@ -321,62 +349,112 @@ export default function ArticleDetail() {
 
 
 
+
+
+
 const styles = StyleSheet.create({
 
+
 container:{
-  flex:1,
-  padding:20,
-  backgroundColor:"#fff"
+
+flex:1,
+
+padding:20,
+
+backgroundColor:"#fff"
+
 },
+
 
 
 error:{
-  fontSize:18,
-  textAlign:"center",
-  marginTop:50
+
+fontSize:18,
+
+textAlign:"center",
+
+marginTop:50
+
 },
+
+
 
 
 image:{
-  width:"100%",
-  height:230,
-  borderRadius:15,
-  marginBottom:20
+
+width:"100%",
+
+height:230,
+
+borderRadius:15,
+
+marginBottom:20
+
 },
+
+
 
 
 title:{
-  fontSize:28,
-  fontWeight:"700",
-  marginBottom:12
+
+fontSize:28,
+
+fontWeight:"700",
+
+marginBottom:12
+
 },
+
+
 
 
 subtitle:{
-  fontSize:17,
-  color:"#666",
-  marginBottom:25
+
+fontSize:17,
+
+color:"#666",
+
+marginBottom:25
+
 },
+
+
 
 
 section:{
-  marginBottom:25
+
+marginBottom:25
+
 },
+
+
 
 
 heading:{
-  fontSize:22,
-  fontWeight:"700",
-  marginBottom:12
+
+fontSize:22,
+
+fontWeight:"700",
+
+marginBottom:12
+
 },
 
 
+
+
 paragraph:{
-  fontSize:16,
-  lineHeight:27,
-  marginBottom:15,
-  color:"#333"
+
+fontSize:16,
+
+lineHeight:27,
+
+marginBottom:15,
+
+color:"#333"
+
 }
+
 
 
 });
