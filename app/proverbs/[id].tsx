@@ -33,7 +33,7 @@ export default function ProverbDetailScreen() {
         <View style={{ width: 26 }} />
       </View>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Card style={[styles.mainCard, { backgroundColor: theme.surfaceAlt, borderColor: "transparent" }]}>
+        <Card style={[styles.mainCard, { backgroundColor:  theme.surfaceAlt, borderColor: "transparent" }]}>
           <Text style={[styles.label, { color: theme.primary }]}>{proverb.title.toUpperCase()}</Text>
           <Text style={[styles.murle, { color: theme.text }]}>“{proverb.murle}”</Text>
           <View style={[styles.divider, { backgroundColor: theme.border }]} />
