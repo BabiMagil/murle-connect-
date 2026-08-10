@@ -1,75 +1,133 @@
-{
-  "id": "01-the-origin-of-the-murle",
-  "category": "history",
-  "title": "The Origin of the Murle People",
-  "subtitle": "Exploring the historical, linguistic, and oral traditions surrounding the origins of one of South Sudan's indigenous communities.",
-  "image": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80",
-  "publishedAt": "2026-07-29",
-  "author": "Murle Connect Editorial Team",
-  "tags": [
-    "Murle History",
-    "Origins",
-    "South Sudan",
-    "Culture",
-    "Heritage",
-    "Ethnicity"
-  ],
-  "body": [
-    {
-      "heading": "Introduction",
-      "paragraphs": [
-        "Every people have a story of where they came from. These stories help explain who they are, how they developed their customs, and why they call certain lands their home. For the Murle people, understanding their origin is more than learning about the past. It is about preserving identity, honouring ancestors, and passing knowledge from one generation to the next.",
-        "The history of the Murle stretches back many centuries, long before the modern borders of South Sudan existed. Unlike some kingdoms that left written records, much of Murle history was preserved through oral tradition. Elders passed stories, songs, family histories, and cultural knowledge to younger generations. These traditions remain an important source of historical memory.",
-        "Modern historians, anthropologists, and linguists have also studied the Murle using language, archaeology, historical records, and comparisons with neighbouring communities. While many aspects of Murle history are well understood, some of the earliest chapters remain uncertain. This article presents what is currently known while clearly distinguishing documented evidence from oral traditions."
-      ]
-    },
-    {
-      "heading": "Why Studying Murle Origins Is Important",
-      "paragraphs": [
-        "Knowing the origin of a people helps explain many aspects of their present-day life. It provides context for their language, customs, beliefs, social organization, and relationships with neighbouring communities. For the Murle, studying their origins also helps preserve cultural heritage in a rapidly changing world.",
-        "As modernization spreads and elders who carry traditional knowledge grow older, recording Murle history becomes increasingly important. Written documentation ensures that future generations can learn about their heritage while also encouraging historical research based on evidence and respectful dialogue."
-      ]
-    },
-    {
-      "heading": "Sources of Murle History",
-      "paragraphs": [
-        "Understanding the history of the Murle requires drawing information from several different sources. Each source contributes valuable knowledge, but none tells the complete story on its own.",
-        "Murle oral traditions preserve memories of ancestors, migration, family lineages, ceremonies, and important historical events. These traditions are an essential part of Murle identity, although they often do not provide exact dates.",
-        "Linguistics, the scientific study of languages, provides another important source of evidence. By comparing the Murle language with other languages spoken in eastern Africa, researchers can better understand historical relationships between communities.",
-        "Anthropology examines Murle culture, social organization, traditions, and material culture. Archaeology helps reconstruct the lives of ancient peoples through physical evidence, although archaeological work in eastern South Sudan remains limited. Historical records from travellers, colonial administrators, missionaries, and modern researchers provide additional information, especially from the nineteenth century onward."
-      ]
-    },
-    {
-      "heading": "What Historians Know About the Earliest Origins",
-      "paragraphs": [
-        "Based on current research, historians believe that the Murle are one of the indigenous peoples of the eastern South Sudan region. Their history is closely connected to the broader history of the peoples living between present-day South Sudan, Ethiopia, and neighbouring regions.",
-        "The Murle speak the Murle language, which belongs to the Surmic branch of the Nilo-Saharan language family according to many linguists, although language classification continues to be refined through ongoing research. This distinguishes the Murle from several neighbouring Nilotic-speaking communities while also reflecting centuries of interaction among different peoples.",
-        "Because written records from the earliest periods are scarce, historians cannot identify a precise date or single place where the Murle first emerged as a distinct community. Instead, evidence suggests that Murle identity developed gradually over many generations as families and clans formed stable communities, developed shared customs, and established a common language."
-      ]
-    },
-    {
-      "heading": "Murle Oral Traditions",
-      "paragraphs": [
-        "Within Murle communities, elders preserve different oral traditions about the ancestors and the early history of the people. These accounts may vary between families, clans, and local communities. Such variation is common in oral societies and reflects the richness of community memory rather than a single official version of history.",
-        "Oral traditions often emphasize lessons about courage, kinship, migration, respect for elders, and the relationship between people, cattle, and the land. They remain an important cultural heritage and deserve careful documentation for future generations.",
-        "Because these traditions are transmitted orally, historians compare them with linguistic and archaeological evidence whenever possible. Where evidence is limited, researchers acknowledge uncertainty instead of presenting any single tradition as proven historical fact."
-      ]
-    },
-    {
-      "heading": "Conclusion",
-      "paragraphs": [
-        "The story of the Murle people did not begin with written books. It began with families, elders, language, traditions, and generations of people who preserved their history through memory and storytelling. Although historians continue to research the earliest chapters of Murle history, there is broad agreement that the Murle are one of the historic indigenous communities of eastern South Sudan with a rich cultural heritage and a unique identity.",
-        "Understanding Murle origins is not only about discovering the past. It is also about preserving knowledge for future generations, strengthening cultural identity, and ensuring that the voices of Murle elders remain part of the historical record."
-      ]
-    }
-  ],
-  "historicalNote": "This article distinguishes between documented historical evidence, linguistic research, and Murle oral traditions. Some aspects of the earliest Murle history remain subjects of ongoing academic research because written records from the period are limited.",
-  "references": [
-    "Douglas H. Johnson. The Root Causes of Sudan's Civil Wars.",
-    "Robert O. Collins. A History of Modern Sudan.",
-    "Ethnologue: Murle Language.",
-    "Academic studies on Surmic languages and the peoples of northeastern Africa.",
-    "Murle oral traditions preserved by community elders."
-  ],
-  "nextArticle": "02-murle-ethnic-identity-and-language.json"
+HISTORY STRUCTURE 
+
+GIVE ME THE FULL ONE TO USE IN HISTORY                                                                  {
+  "id": "25-the-modern-murle-identity-and-future",
+  "category": "history",
+  "title": "The Modern Murle Identity and Future",
+  "subtitle": "How Murle identity continues to develop through history, culture, education, technology, and the hopes of future generations.",
+  "image": "modern-murle-identity-future.jpg",
+  "publishedAt": "2026-07-29",
+  "author": "Murle Connect Editorial Team",
+  "tags": [
+    "Murle History",
+    "Modern Murle",
+    "Identity",
+    "Future",
+    "Culture",
+    "Heritage"
+  ],
+  "body": [
+    {
+      "heading": "Introduction",
+      "paragraphs": [
+        "The history of the Murle people is a journey of movement, adaptation, survival, and cultural continuity.",
+        "From traditional communities connected to land and livestock, through periods of political change and conflict, Murle identity has continued to develop across generations.",
+        "Today, being Murle means carrying the memories of ancestors while also participating in the modern world."
+      ]
+    },
+    {
+      "heading": "Understanding Modern Murle Identity",
+      "paragraphs": [
+        "Identity is built from many parts: language, history, traditions, family connections, values, and shared experiences.",
+        "Modern Murle identity combines traditional knowledge with new experiences created by education, migration, technology, and interaction with wider society.",
+        "The past remains an important foundation for understanding the present."
+      ]
+    },
+    {
+      "heading": "The Importance of Language",
+      "paragraphs": [
+        "Language is one of the strongest symbols of cultural identity.",
+        "The Murle language carries history, expressions, proverbs, stories, and ways of understanding the world.",
+        "Protecting language helps preserve knowledge that has been passed down through many generations."
+      ]
+    },
+    {
+      "heading": "Tradition and Modern Life",
+      "paragraphs": [
+        "Modern Murle communities live in a changing world where traditional lifestyles and modern opportunities exist together.",
+        "Many people continue to value traditions while also pursuing education, professional careers, business, and technology.",
+        "The challenge for every generation is maintaining cultural values while adapting to new realities."
+      ]
+    },
+    {
+      "heading": "The Role of Education",
+      "paragraphs": [
+        "Education has become one of the most important tools for community development.",
+        "Through education, young people gain skills that allow them to participate in leadership, science, business, government, and other fields.",
+        "Education also provides opportunities to document and research Murle history from within the community."
+      ]
+    },
+    {
+      "heading": "The Digital Generation",
+      "paragraphs": [
+        "Technology has created new opportunities for preserving and sharing cultural heritage.",
+        "Young Murle people can now use digital platforms to record stories, publish history, share language resources, and connect communities across different locations.",
+        "Digital tools can become a bridge between traditional knowledge and future generations."
+      ]
+    },
+    {
+      "heading": "Preserving Cultural Heritage",
+      "paragraphs": [
+        "Cultural heritage includes more than ceremonies and traditions. It includes memories, knowledge, values, language, songs, stories, and ways of life.",
+        "Preserving heritage requires recording the voices of elders and encouraging younger generations to learn about their history.",
+        "A culture remains strong when each generation takes responsibility for protecting it."
+      ]
+    },
+    {
+      "heading": "The Responsibility of Young People",
+      "paragraphs": [
+        "Young people are the future guardians of Murle history and identity.",
+        "They have the responsibility to learn from elders, seek education, promote peace, and contribute positively to society.",
+        "The future of Murle heritage depends greatly on how younger generations value and protect their culture."
+      ]
+    },
+    {
+      "heading": "Women and the Future of Culture",
+      "paragraphs": [
+        "Women have always played important roles in maintaining families, teaching children, preserving traditions, and strengthening communities.",
+        "Their knowledge and experiences are essential parts of documenting complete Murle history.",
+        "The preservation of culture requires the contribution of everyone."
+      ]
+    },
+    {
+      "heading": "Building a Peaceful Future",
+      "paragraphs": [
+        "The future of any community depends on peace, cooperation, and understanding.",
+        "Learning from history can help communities avoid repeating past mistakes and create stronger relationships.",
+        "Peace allows culture, education, and development to grow."
+      ]
+    },
+    {
+      "heading": "Murle Heritage in South Sudan and the World",
+      "paragraphs": [
+        "The Murle people are part of the diverse cultural landscape of South Sudan.",
+        "Sharing Murle history with the wider world helps create understanding and appreciation of the community's contributions.",
+        "Every culture has valuable knowledge that can enrich humanity."
+      ]
+    },
+    {
+      "heading": "The Journey Continues",
+      "paragraphs": [
+        "The history of the Murle people is not only a story of the past. It is a continuing journey.",
+        "Each generation adds a new chapter through its choices, achievements, challenges, and contributions.",
+        "The future will be shaped by those who respect their roots while creating new possibilities."
+      ]
+    },
+    {
+      "heading": "Conclusion",
+      "paragraphs": [
+        "The journey of the Murle people reflects resilience, adaptation, and cultural strength.",
+        "From ancient traditions to modern challenges, Murle identity continues to survive through language, family, history, and community values.",
+        "Preserving this heritage ensures that future generations understand where they came from and can confidently build where they are going."
+      ]
+    }
+  ],
+  "historicalNote": "Modern identity continues to change as communities interact with new social, economic, and technological environments. This article recognizes both cultural continuity and ongoing transformation.",
+  "references": [
+    "Research on identity and cultural preservation among African communities.",
+    "Studies on South Sudan societies and heritage.",
+    "Anthropological research on pastoral communities.",
+    "Murle oral traditions preserved by community elders."
+  ],
+  "nextArticle": "history-section-complete"
 }
