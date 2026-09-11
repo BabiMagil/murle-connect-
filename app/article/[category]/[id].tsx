@@ -1,94 +1,48 @@
 import React from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
   View,
+  Text,
+  ScrollView,
   Image,
+  StyleSheet,
   TouchableOpacity,
 } from "react-native";
-
-import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-
+import { useLocalSearchParams, router } from "expo-router";
 import { getArticleById } from "@/utils/contentLoader";
-import { useAppTheme } from "@/hooks/useAppTheme";
-import { radii, spacing, typography } from "@/constants/theme";
 
 export default function ArticleDetail() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-
-  const router = useRouter();
-  const theme = useAppTheme();
+  const { id } = useLocalSearchParams();
 
   const article = getArticleById(String(id));
 
-  /*
-   * ARTICLE NOT FOUND
-   */
   if (!article) {
     return (
-      <SafeAreaView
-        style={[
-          styles.safe,
-          {
-            backgroundColor: theme.background,
-          },
-        ]}
-      >
-        <View style={styles.errorContainer}>
-          <Ionicons
-            name="document-text-outline"
-            size={48}
-            color={theme.textMuted}
-          />
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorTitle}>
+          Article Not Found
+        </Text>
 
-          <Text
-            style={[
-              styles.errorTitle,
-              {
-                color: theme.text,
-              },
-            ]}
-          >
-            Article not found
+        <Text style={styles.errorText}>
+          We could not find this article.
+        </Text>
+
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <Text style={styles.backButtonText}>
+            Go Back
           </Text>
-
-          <TouchableOpacity
-            onPress={() => router.back()}
-            style={[
-              styles.backButton,
-              {
-                backgroundColor: theme.primary,
-              },
-            ]}
-          >
-            <Text style={styles.backButtonText}>Go Back</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+        </TouchableOpacity>
+      </View>
     );
   }
 
   /*
-   * SAFELY GET ARTICLE DATA
+   * TEXT BLOCK RENDERER
    */
-  const title = article.title || "Untitled Article";
-  const subtitle = article.subtitle || "";
-  const category = article.category || "Article";
-  const image = article.image || "";
 
-  /*
-   * RENDER ANY TEXT / ARRAY / OBJECT
-   *
-   * This makes the article flexible.
-   */
-  function TextBlock({
-    text,
-  }: {
-    text: any;
-  }) {
+  function TextBlock({ text }: { text: any }) {
     if (
       text === null ||
       text === undefined ||
@@ -97,9 +51,6 @@ export default function ArticleDetail() {
       return null;
     }
 
-    /*
-     * ARRAY
-     */
     if (Array.isArray(text)) {
       return (
         <View>
@@ -113,9 +64,6 @@ export default function ArticleDetail() {
       );
     }
 
-    /*
-     * OBJECT
-     */
     if (typeof text === "object") {
       return (
         <View>
@@ -123,17 +71,10 @@ export default function ArticleDetail() {
             ([key, value]: any) => (
               <View
                 key={key}
-                style={styles.genericObjectSection}
+                style={styles.section}
               >
-                <Text
-                  style={[
-                    styles.genericHeading,
-                    {
-                      color: theme.text,
-                    },
-                  ]}
-                >
-                  {key}
+                <Text style={styles.sectionHeading}>
+                  {formatHeading(key)}
                 </Text>
 
                 <TextBlock text={value} />
@@ -144,322 +85,88 @@ export default function ArticleDetail() {
       );
     }
 
-    /*
-     * NORMAL TEXT
-     */
     return (
-      <Text
-        style={[
-          styles.paragraph,
-          {
-            color: theme.text,
-          },
-        ]}
-      >
+      <Text style={styles.paragraph}>
         {String(text)}
       </Text>
     );
   }
 
   /*
-   * RENDER ARTICLE BODY
+   * FORMAT HEADINGS
+   */
+
+  function formatHeading(value: string) {
+    if (!value) {
+      return "";
+    }
+
+    return value
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (letter) =>
+        letter.toUpperCase()
+      );
+  }
+
+  /*
+   * PROVERB SECTIONS
    *
-   * Handles the structure:
+   * Supports:
    *
-   * body: [
+   * sections: [
    *   {
-   *     heading: "...",
-   *     paragraphs: [...]
+   *     heading: "Meaning",
+   *     content: [
+   *       "Paragraph 1",
+   *       "Paragraph 2"
+   *     ]
    *   }
    * ]
    */
-  function renderBody() {
-    if (!article.body) {
-      return null;
-    }
 
-    /*
-     * Structured article body
-     */
-    if (Array.isArray(article.body)) {
-      return (
-        <View style={styles.bodyContainer}>
-          {article.body.map(
-            (section: any, index: number) => {
-              /*
-               * Section with heading + paragraphs
-               */
-              if (
-                typeof section === "object" &&
-                section !== null
-              ) {
-                const heading =
-                  section.heading || "";
-
-                const paragraphs =
-                  section.paragraphs || [];
-
-                return (
-                  <View
-                    key={index}
-                    style={styles.articleSection}
-                  >
-                    {heading ? (
-                      <Text
-                        style={[
-                          styles.articleHeading,
-                          {
-                            color: theme.text,
-                          },
-                        ]}
-                      >
-                        {heading}
-                      </Text>
-                    ) : null}
-
-                    {Array.isArray(
-                      paragraphs
-                    )
-                      ? paragraphs.map(
-                          (
-                            paragraph: any,
-                            paragraphIndex: number
-                          ) => (
-                            <Text
-                              key={
-                                paragraphIndex
-                              }
-                              style={[
-                                styles.articleParagraph,
-                                {
-                                  color:
-                                    theme.text,
-                                },
-                              ]}
-                            >
-                              {String(
-                                paragraph
-                              )}
-                            </Text>
-                          )
-                        )
-                      : (
-                          <Text
-                            style={[
-                              styles.articleParagraph,
-                              {
-                                color:
-                                  theme.text,
-                              },
-                            ]}
-                          >
-                            {String(
-                              paragraphs
-                            )}
-                          </Text>
-                        )}
-                  </View>
-                );
-              }
-
-              /*
-               * Normal text item
-               */
-              return (
-                <Text
-                  key={index}
-                  style={[
-                    styles.articleParagraph,
-                    {
-                      color: theme.text,
-                    },
-                  ]}
-                >
-                  {String(section)}
-                </Text>
-              );
-            }
-          )}
-        </View>
-      );
-    }
-
-    /*
-     * Fallback for older article formats
-     */
-    return (
-      <View style={styles.bodyContainer}>
-        <TextBlock text={article.body} />
-      </View>
-    );
-  }
-
-  /*
-   * TAGS
-   */
-  function renderTags() {
+  function renderSections() {
     if (
-      !article.tags ||
-      !Array.isArray(article.tags) ||
-      article.tags.length === 0
+      !article.sections ||
+      !Array.isArray(article.sections)
     ) {
       return null;
     }
 
     return (
-      <View style={styles.tagsSection}>
-        <Text
-          style={[
-            styles.tagsHeading,
-            {
-              color: theme.text,
-            },
-          ]}
-        >
-          Tags
-        </Text>
-
-        <View style={styles.tagsContainer}>
-          {article.tags.map(
-            (tag: string, index: number) => (
-              <View
-                key={`${tag}-${index}`}
-                style={[
-                  styles.tag,
-                  {
-                    backgroundColor:
-                      theme.primary + "15",
-                    borderColor:
-                      theme.primary + "35",
-                  },
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.tagText,
-                    {
-                      color: theme.primary,
-                    },
-                  ]}
-                >
-                  {tag}
-                </Text>
-              </View>
-            )
-          )}
-        </View>
-      </View>
-    );
-  }
-
-  /*
-   * HISTORICAL NOTE
-   */
-  function renderHistoricalNote() {
-    if (!article.historicalNote) {
-      return null;
-    }
-
-    return (
-      <View
-        style={[
-          styles.noteBox,
-          {
-            backgroundColor:
-              theme.surfaceAlt,
-            borderLeftColor:
-              theme.primary,
-          },
-        ]}
-      >
-        <View style={styles.noteHeader}>
-          <Ionicons
-            name="information-circle-outline"
-            size={20}
-            color={theme.primary}
-          />
-
-          <Text
-            style={[
-              styles.noteTitle,
-              {
-                color: theme.text,
-              },
-            ]}
-          >
-            Historical Note
-          </Text>
-        </View>
-
-        <Text
-          style={[
-            styles.noteText,
-            {
-              color: theme.textMuted,
-            },
-          ]}
-        >
-          {article.historicalNote}
-        </Text>
-      </View>
-    );
-  }
-
-  /*
-   * REFERENCES
-   */
-  function renderReferences() {
-    if (
-      !article.references ||
-      !Array.isArray(article.references) ||
-      article.references.length === 0
-    ) {
-      return null;
-    }
-
-    return (
-      <View style={styles.referencesSection}>
-        <Text
-          style={[
-            styles.referencesHeading,
-            {
-              color: theme.text,
-            },
-          ]}
-        >
-          References
-        </Text>
-
-        {article.references.map(
-          (
-            reference: string,
-            index: number
-          ) => (
+      <View style={styles.articleContent}>
+        {article.sections.map(
+          (section: any, index: number) => (
             <View
               key={index}
-              style={styles.referenceRow}
+              style={styles.section}
             >
-              <Text
-                style={[
-                  styles.referenceNumber,
-                  {
-                    color: theme.primary,
-                  },
-                ]}
-              >
-                {index + 1}.
-              </Text>
+              {section.heading && (
+                <Text
+                  style={styles.sectionHeading}
+                >
+                  {section.heading}
+                </Text>
+              )}
 
-              <Text
-                style={[
-                  styles.referenceText,
-                  {
-                    color: theme.textMuted,
-                  },
-                ]}
-              >
-                {reference}
-              </Text>
+              {Array.isArray(section.content) ? (
+                section.content.map(
+                  (
+                    paragraph: any,
+                    paragraphIndex: number
+                  ) => (
+                    <Text
+                      key={paragraphIndex}
+                      style={styles.paragraph}
+                    >
+                      {String(paragraph)}
+                    </Text>
+                  )
+                )
+              ) : (
+                <TextBlock
+                  text={section.content}
+                />
+              )}
             </View>
           )
         )}
@@ -467,492 +174,534 @@ export default function ArticleDetail() {
     );
   }
 
+  /*
+   * NORMAL ARTICLE BODY
+   *
+   * Supports:
+   *
+   * body: [
+   *   {
+   *     heading: "Introduction",
+   *     paragraphs: [...]
+   *   }
+   * ]
+   */
+
+  function renderBody() {
+    if (!article.body) {
+      return null;
+    }
+
+    if (Array.isArray(article.body)) {
+      return (
+        <View style={styles.articleContent}>
+          {article.body.map(
+            (section: any, index: number) => (
+              <View
+                key={index}
+                style={styles.section}
+              >
+                {section.heading && (
+                  <Text
+                    style={styles.sectionHeading}
+                  >
+                    {section.heading}
+                  </Text>
+                )}
+
+                {section.paragraphs &&
+                Array.isArray(section.paragraphs) ? (
+                  section.paragraphs.map(
+                    (
+                      paragraph: any,
+                      paragraphIndex: number
+                    ) => (
+                      <Text
+                        key={paragraphIndex}
+                        style={styles.paragraph}
+                      >
+                        {String(paragraph)}
+                      </Text>
+                    )
+                  )
+                ) : section.content &&
+                  Array.isArray(section.content) ? (
+                  section.content.map(
+                    (
+                      paragraph: any,
+                      paragraphIndex: number
+                    ) => (
+                      <Text
+                        key={paragraphIndex}
+                        style={styles.paragraph}
+                      >
+                        {String(paragraph)}
+                      </Text>
+                    )
+                  )
+                ) : (
+                  <TextBlock
+                    text={section}
+                  />
+                )}
+              </View>
+            )
+          )}
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.articleContent}>
+        <TextBlock text={article.body} />
+      </View>
+    );
+  }
+
+  /*
+   * CONTENT RENDERER
+   */
+
+  function renderContent() {
+    /*
+     * PROVERB SECTIONS
+     */
+
+    if (
+      article.sections &&
+      Array.isArray(article.sections)
+    ) {
+      return renderSections();
+    }
+
+    /*
+     * NORMAL ARTICLE BODY
+     */
+
+    if (article.body) {
+      return renderBody();
+    }
+
+    /*
+     * OLD CONTENT FORMAT
+     */
+
+    if (article.content) {
+      return (
+        <View style={styles.articleContent}>
+          <TextBlock text={article.content} />
+        </View>
+      );
+    }
+
+    /*
+     * OLD PROVERB FORMAT
+     */
+
+    if (
+      article.murle ||
+      article.english ||
+      article.meaning ||
+      article.explanation
+    ) {
+      return (
+        <View style={styles.articleContent}>
+          {article.murle && (
+            <View style={styles.section}>
+              <Text
+                style={styles.sectionHeading}
+              >
+                Murle Proverb
+              </Text>
+
+              <Text style={styles.paragraph}>
+                {article.murle}
+              </Text>
+            </View>
+          )}
+
+          {article.english && (
+            <View style={styles.section}>
+              <Text
+                style={styles.sectionHeading}
+              >
+                Translation
+              </Text>
+
+              <Text style={styles.paragraph}>
+                {article.english}
+              </Text>
+            </View>
+          )}
+
+          {article.meaning && (
+            <View style={styles.section}>
+              <Text
+                style={styles.sectionHeading}
+              >
+                Meaning
+              </Text>
+
+              <Text style={styles.paragraph}>
+                {article.meaning}
+              </Text>
+            </View>
+          )}
+
+          {article.explanation && (
+            <View style={styles.section}>
+              <Text
+                style={styles.sectionHeading}
+              >
+                Explanation
+              </Text>
+
+              <Text style={styles.paragraph}>
+                {article.explanation}
+              </Text>
+            </View>
+          )}
+        </View>
+      );
+    }
+
+    return null;
+  }
+
   return (
-    <SafeAreaView
-      style={[
-        styles.safe,
-        {
-          backgroundColor:
-            theme.background,
-        },
-      ]}
-      edges={["top"]}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={false}
     >
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={
-          styles.contentContainer
-        }
-        showsVerticalScrollIndicator={false}
-      >
-        {/* BACK BUTTON */}
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backRow}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="chevron-back"
-            size={24}
-            color={theme.text}
-          />
+      {/* HERO IMAGE */}
 
-          <Text
-            style={[
-              styles.backText,
-              {
-                color: theme.text,
-              },
-            ]}
-          >
-            Back
-          </Text>
-        </TouchableOpacity>
+      {article.image && (
+        <Image
+          source={{
+            uri: article.image,
+          }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      )}
 
-        {/* ARTICLE IMAGE */}
-        {image ? (
-          <Image
-            source={{
-              uri: image,
-            }}
-            style={styles.heroImage}
-          />
-        ) : null}
+      {/* TITLE */}
 
-        {/* CATEGORY */}
-        <Text
-          style={[
-            styles.category,
-            {
-              color: theme.primary,
-            },
-          ]}
-        >
-          {String(category).toUpperCase()}
+      <Text style={styles.title}>
+        {article.title}
+      </Text>
+
+      {/* SUBTITLE */}
+
+      {article.subtitle && (
+        <Text style={styles.subtitle}>
+          {article.subtitle}
         </Text>
+      )}
 
-        {/* TITLE */}
-        <Text
-          style={[
-            styles.title,
-            {
-              color: theme.text,
-            },
-          ]}
-        >
-          {title}
+      {/* AUTHOR */}
+
+      {article.author && (
+        <Text style={styles.author}>
+          By {article.author}
         </Text>
+      )}
 
-        {/* SUBTITLE */}
-        {subtitle ? (
-          <Text
-            style={[
-              styles.subtitle,
-              {
-                color: theme.textMuted,
-              },
-            ]}
-          >
-            {subtitle}
+      {/* DATE */}
+
+      {article.publishedAt && (
+        <Text style={styles.date}>
+          {article.publishedAt}
+          {article.readingTime
+            ? ` • ${article.readingTime} min read`
+            : ""}
+        </Text>
+      )}
+
+      {/* SUMMARY */}
+
+      {article.summary && (
+        <View style={styles.summaryBox}>
+          <Text style={styles.summaryText}>
+            {article.summary}
           </Text>
-        ) : null}
+        </View>
+      )}
 
-        {/* AUTHOR / DATE */}
-        {(article.author ||
-          article.publishedAt) && (
-          <View
-            style={[
-              styles.metaContainer,
-              {
-                borderTopColor:
-                  theme.border,
-                borderBottomColor:
-                  theme.border,
-              },
-            ]}
-          >
-            {article.author ? (
-              <View style={styles.metaItem}>
-                <Ionicons
-                  name="person-outline"
-                  size={15}
-                  color={theme.textMuted}
-                />
+      {/* ARTICLE CONTENT */}
 
+      {renderContent()}
+
+      {/* HISTORICAL NOTE */}
+
+      {article.historicalNote && (
+        <View style={styles.noteBox}>
+          <Text style={styles.noteTitle}>
+            Historical Note
+          </Text>
+
+          <Text style={styles.noteText}>
+            {article.historicalNote}
+          </Text>
+        </View>
+      )}
+
+      {/* REFERENCES */}
+
+      {article.references &&
+        Array.isArray(article.references) && (
+          <View style={styles.referencesBox}>
+            <Text
+              style={styles.referencesTitle}
+            >
+              References
+            </Text>
+
+            {article.references.map(
+              (
+                reference: string,
+                index: number
+              ) => (
                 <Text
-                  style={[
-                    styles.metaText,
-                    {
-                      color:
-                        theme.textMuted,
-                    },
-                  ]}
+                  key={index}
+                  style={styles.reference}
                 >
-                  {article.author}
+                  {index + 1}. {reference}
                 </Text>
-              </View>
-            ) : null}
-
-            {article.publishedAt ? (
-              <View style={styles.metaItem}>
-                <Ionicons
-                  name="calendar-outline"
-                  size={15}
-                  color={theme.textMuted}
-                />
-
-                <Text
-                  style={[
-                    styles.metaText,
-                    {
-                      color:
-                        theme.textMuted,
-                    },
-                  ]}
-                >
-                  {article.publishedAt}
-                </Text>
-              </View>
-            ) : null}
+              )
+            )}
           </View>
         )}
 
-        {/* ARTICLE BODY */}
-        {renderBody()}
+      {/* TAGS */}
 
-        {/* TAGS */}
-        {renderTags()}
+      {article.tags &&
+        Array.isArray(article.tags) &&
+        article.tags.length > 0 && (
+          <View style={styles.tagsContainer}>
+            <Text style={styles.tagsTitle}>
+              Tags
+            </Text>
 
-        {/* HISTORICAL NOTE */}
-        {renderHistoricalNote()}
+            <View style={styles.tags}>
+              {article.tags.map(
+                (
+                  tag: string,
+                  index: number
+                ) => (
+                  <View
+                    key={index}
+                    style={styles.tag}
+                  >
+                    <Text
+                      style={styles.tagText}
+                    >
+                      #{tag}
+                    </Text>
+                  </View>
+                )
+              )}
+            </View>
+          </View>
+        )}
 
-        {/* REFERENCES */}
-        {renderReferences()}
-
-        {/* END OF ARTICLE */}
-        <View
-          style={[
-            styles.endDivider,
-            {
-              backgroundColor:
-                theme.border,
-            },
-          ]}
-        />
-
-        <Text
-          style={[
-            styles.endText,
-            {
-              color: theme.textMuted,
-            },
-          ]}
-        >
-          End of article
-        </Text>
-
-        <View style={styles.bottomSpace} />
-      </ScrollView>
-    </SafeAreaView>
+      <View style={styles.bottomSpace} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
-
   container: {
     flex: 1,
+    backgroundColor: "#F5F1E8",
   },
 
   contentContainer: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-    paddingBottom: spacing.xxl,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 50,
   },
 
-  /*
-   * BACK BUTTON
-   */
-  backRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: spacing.md,
-    paddingVertical: spacing.xs,
-  },
-
-  backText: {
-    ...typography.body,
-    marginLeft: 4,
-    fontWeight: "600",
-  },
-
-  /*
-   * HERO IMAGE
-   */
-  heroImage: {
+  image: {
     width: "100%",
     height: 240,
-    borderRadius: radii.xl,
-    marginBottom: spacing.lg,
+    borderRadius: 18,
+    marginBottom: 24,
   },
 
-  /*
-   * CATEGORY
-   */
-  category: {
-    ...typography.label,
-    fontSize: 11,
-    fontWeight: "800",
-    letterSpacing: 1.2,
-    marginBottom: spacing.sm,
-  },
-
-  /*
-   * MAIN ARTICLE TITLE
-   */
   title: {
-    ...typography.title,
     fontSize: 30,
     lineHeight: 38,
     fontWeight: "800",
-    marginBottom: spacing.sm,
+    color: "#1D0202",
+    marginBottom: 12,
   },
 
-  /*
-   * SUBTITLE
-   */
   subtitle: {
-    ...typography.body,
     fontSize: 17,
     lineHeight: 26,
-    marginBottom: spacing.lg,
+    color: "#5E4A3A",
+    marginBottom: 14,
   },
 
-  /*
-   * AUTHOR / DATE
-   */
-  metaContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.md,
-    paddingVertical: spacing.md,
-    borderTopWidth:
-      StyleSheet.hairlineWidth,
-    borderBottomWidth:
-      StyleSheet.hairlineWidth,
-    marginBottom: spacing.xl,
+  author: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#795548",
+    marginBottom: 5,
   },
 
-  metaItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
+  date: {
+    fontSize: 13,
+    color: "#8A8178",
+    marginBottom: 24,
   },
 
-  metaText: {
-    ...typography.caption,
-    fontSize: 12,
+  summaryBox: {
+    backgroundColor: "#EFE4CF",
+    borderLeftWidth: 5,
+    borderLeftColor: "#9A6A2F",
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 30,
   },
 
-  /*
-   * BODY
-   */
-  bodyContainer: {
+  summaryText: {
+    fontSize: 16,
+    lineHeight: 26,
+    color: "#3F3025",
+    fontStyle: "italic",
+  },
+
+  articleContent: {
     width: "100%",
   },
 
-  /*
-   * ARTICLE SECTION
-   */
-  articleSection: {
-    marginBottom: spacing.xl,
+  section: {
+    marginBottom: 30,
   },
 
-  /*
-   * REAL ARTICLE HEADING
-   *
-   * This is the heading from:
-   *
-   * "heading": "Introduction"
-   */
-  articleHeading: {
-    fontSize: 22,
-    lineHeight: 29,
+  sectionHeading: {
+    fontSize: 23,
+    lineHeight: 30,
     fontWeight: "800",
-    marginBottom: spacing.md,
+    color: "#5B3716",
+    marginBottom: 12,
   },
 
-  /*
-   * REAL ARTICLE PARAGRAPH
-   *
-   * This is the text from:
-   *
-   * "paragraphs": [...]
-   */
-  articleParagraph: {
-    fontSize: 16,
-    lineHeight: 28,
-    fontWeight: "400",
-    marginBottom: spacing.md,
-  },
-
-  /*
-   * FALLBACK PARAGRAPH
-   */
   paragraph: {
-    fontSize: 16,
-    lineHeight: 28,
+    fontSize: 17,
+    lineHeight: 29,
     fontWeight: "400",
-    marginBottom: spacing.md,
+    color: "#2F2924",
+    marginBottom: 14,
   },
 
-  /*
-   * OBJECT FALLBACK HEADING
-   */
-  genericHeading: {
-    fontSize: 20,
-    lineHeight: 27,
-    fontWeight: "800",
-    marginBottom: spacing.sm,
-  },
-
-  genericObjectSection: {
-    marginBottom: spacing.lg,
-  },
-
-  /*
-   * TAGS
-   */
-  tagsSection: {
-    marginTop: spacing.md,
-    marginBottom: spacing.xl,
-  },
-
-  tagsHeading: {
-    fontSize: 20,
-    fontWeight: "800",
-    marginBottom: spacing.md,
-  },
-
-  tagsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-  },
-
-  tag: {
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 999,
-    borderWidth:
-      StyleSheet.hairlineWidth,
-  },
-
-  tagText: {
-    fontSize: 12,
-    fontWeight: "700",
-  },
-
-  /*
-   * HISTORICAL NOTE
-   */
   noteBox: {
-    borderLeftWidth: 4,
-    borderRadius: radii.lg,
-    padding: spacing.lg,
-    marginBottom: spacing.xl,
-  },
-
-  noteHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 7,
-    marginBottom: spacing.sm,
+    backgroundColor: "#EEE8DD",
+    borderRadius: 12,
+    padding: 17,
+    marginTop: 10,
+    marginBottom: 25,
+    borderWidth: 1,
+    borderColor: "#D6C8B6",
   },
 
   noteTitle: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: "800",
+    color: "#5B3716",
+    marginBottom: 8,
   },
 
   noteText: {
-    fontSize: 14,
-    lineHeight: 23,
+    fontSize: 15,
+    lineHeight: 24,
+    color: "#51463C",
   },
 
-  /*
-   * REFERENCES
-   */
-  referencesSection: {
-    marginBottom: spacing.xl,
+  referencesBox: {
+    marginTop: 10,
+    marginBottom: 25,
   },
 
-  referencesHeading: {
+  referencesTitle: {
     fontSize: 20,
     fontWeight: "800",
-    marginBottom: spacing.md,
+    color: "#5B3716",
+    marginBottom: 12,
   },
 
-  referenceRow: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    marginBottom: spacing.sm,
-  },
-
-  referenceNumber: {
-    width: 24,
+  reference: {
     fontSize: 14,
+    lineHeight: 23,
+    color: "#5A514A",
+    marginBottom: 7,
+  },
+
+  tagsContainer: {
+    marginTop: 5,
+    marginBottom: 20,
+  },
+
+  tagsTitle: {
+    fontSize: 20,
     fontWeight: "800",
+    color: "#5B3716",
+    marginBottom: 12,
   },
 
-  referenceText: {
-    flex: 1,
-    fontSize: 14,
-    lineHeight: 22,
+  tags: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
   },
 
-  /*
-   * END OF ARTICLE
-   */
-  endDivider: {
-    height: StyleSheet.hairlineWidth,
-    marginTop: spacing.md,
-    marginBottom: spacing.md,
+  tag: {
+    backgroundColor: "#E4D4B8",
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 20,
   },
 
-  endText: {
-    textAlign: "center",
-    fontSize: 12,
+  tagText: {
+    fontSize: 13,
     fontWeight: "600",
+    color: "#5B3716",
   },
 
-  /*
-   * ERROR
-   */
   errorContainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
-    padding: spacing.xl,
+    alignItems: "center",
+    padding: 30,
+    backgroundColor: "#F5F1E8",
   },
 
   errorTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    marginTop: spacing.md,
-    marginBottom: spacing.lg,
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#1D0202",
+    marginBottom: 10,
+  },
+
+  errorText: {
+    fontSize: 16,
+    color: "#6B625A",
+    marginBottom: 25,
+    textAlign: "center",
   },
 
   backButton: {
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.md,
-    borderRadius: radii.lg,
+    backgroundColor: "#6B4520",
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 10,
   },
 
   backButtonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 15,
     fontWeight: "700",
   },

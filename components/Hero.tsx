@@ -1,7 +1,16 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { radii, spacing, typography } from "@/constants/theme";
+import {
+  radii,
+  spacing,
+  typography,
+} from "@/constants/theme";
 
 export function Hero() {
   return (
@@ -14,12 +23,22 @@ export function Hero() {
         imageStyle={{ borderRadius: radii.xl }}
       >
         <LinearGradient
-          colors={["rgba(0,0,0,0.05)", "rgba(0,0,0,0.55)"]}
-          style={StyleSheet.absoluteFillObject as any}
+          colors={[
+            "rgba(0,0,0,0.05)",
+            "rgba(0,0,0,0.55)",
+          ]}
+          style={StyleSheet.absoluteFill}
         />
+
         <View style={styles.content}>
-          <Text style={styles.eyebrow}>MURLE CONNECT</Text>
-          <Text style={styles.title}>Preserving our heritage,{"\n"}one story at a time</Text>
+          <Text style={styles.eyebrow}>
+            MURLE CONNECT
+          </Text>
+
+          <Text style={styles.title}>
+            Preserving our heritage,{"\n"}
+            one story at a time
+          </Text>
         </View>
       </ImageBackground>
     </View>
@@ -32,18 +51,22 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: spacing.lg,
   },
+
   image: {
     height: 220,
     justifyContent: "flex-end",
   },
+
   content: {
     padding: spacing.lg,
   },
+
   eyebrow: {
     color: "#F3E5C7",
     ...typography.label,
     marginBottom: 8,
   },
+
   title: {
     color: "#fff",
     ...typography.title,

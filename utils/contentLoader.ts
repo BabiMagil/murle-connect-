@@ -1,888 +1,456 @@
 // utils/contentLoader.ts
 
-
-// ===============================
+// =====================================================
 // HISTORY IMPORTS
-// ===============================
+// =====================================================
 
-import article1 from "@/content/history/01-the-origin-of-the-murle.json";
-import article2 from "@/content/history/02-murle-ethnic-identity-and-language.json";
-import article3 from "@/content/history/03-murle-migration-and-movement.json";
-import article4 from "@/content/history/04-murle-settlement-in-pibor.json";
-import article5 from "@/content/history/05-murle-clans-and-social-organization.json";
-import article6 from "@/content/history/06-murle-leadership-and-age-sets.json";
-import article7 from "@/content/history/07-murle-family-life-and-kinship.json";
-import article8 from "@/content/history/08-murle-marriage-customs-and-bride-wealth.json";
-import article9 from "@/content/history/09-murle-childhood-and-traditional-education.json";
-import article10 from "@/content/history/10-murle-cattle-and-the-pastoral-way-of-life.json";
+import article1 from "@/content/history/01-the-journey-of-the-murle-people.json";
+import article2 from "@/content/history/02-the-murle-homeland-boma-and-pibor.json";
+import article3 from "@/content/history/03-the-murle-people-and-their-language.json";
+import article4 from "@/content/history/04-murle-clans-and-ancestral-lineages.json";
+import article5 from "@/content/history/05-murle-age-sets-warriors-and-social-organization.json";
+import article6 from "@/content/history/06-murle-traditional-leadership-and-red-chiefs.json";
+import article7 from "@/content/history/07-the-murle-before-and-during-colonial-rule.json";
+import article8 from "@/content/history/08-the-murle-and-the-pibor-region.json";
+import article9 from "@/content/history/09-the-murle-through-sudans-civil-wars.json";
+import article10 from "@/content/history/10-the-murle-in-south-sudan-today.json";
+import article11 from "@/content/history/11-leaders-of-the-murle-people.json";
 
-import article11 from "@/content/history/11-hunting-fishing-and-agriculture.json";
-import article12 from "@/content/history/12-murle-traditional-religion-and-spiritual-beliefs.json";
-import article13 from "@/content/history/13-traditional-law-and-conflict-resolution.json";
-import article14 from "@/content/history/14-murle-women-in-history-and-society.json";
-import article15 from "@/content/history/15-murle-men-and-community-responsibilities.json";
+// =====================================================
+// CULTURE IMPORTS
+// =====================================================
 
-import article16 from "@/content/history/16-murle-traditional-housing-and-village-life.json";
-import article17 from "@/content/history/17-murle-food-and-daily-life-through-history.json";
-import article18 from "@/content/history/18-murle-songs-dance-and-oral-traditions.json";
-import article19 from "@/content/history/19-murle-relations-with-neighboring-communities.json";
-import article20 from "@/content/history/20-the-colonial-period-in-murle-land.json";
+import cultureArticle1 from "@/content/culture/01-murle-identity-and-values.json";
+import cultureArticle2 from "@/content/culture/02-family-ancestry-and-clans.json";
+import cultureArticle3 from "@/content/culture/03-cattle-and-traditional-livelihood.json";
+import cultureArticle4 from "@/content/culture/04-age-sets-and-generational-life.json";
+import cultureArticle5 from "@/content/culture/05-elders-and-traditional-authority.json";
+import cultureArticle6 from "@/content/culture/06-marriage-and-family-life.json";
+import cultureArticle7 from "@/content/culture/07-songs-dance-and-ceremonies.json";
+import cultureArticle8 from "@/content/culture/08-proverbs-and-oral-wisdom.json";
+import cultureArticle9 from "@/content/culture/09-traditional-clothing-and-appearance.json";
+import cultureArticle10 from "@/content/culture/10-murle-culture-in-the-modern-world.json";
 
-import article21 from "@/content/history/21-the-first-sudanese-civil-war-and-the-murle.json";
-import article22 from "@/content/history/22-the-second-sudanese-civil-war-and-the-murle.json";
-import article23 from "@/content/history/23-the-murle-and-the-independence-of-south-sudan.json";
-import article24 from "@/content/history/24-the-post-independence-challenges-of-murle-communities.json";
-import article25 from "@/content/history/25-the-modern-murle-identity-and-future.json";
+// =====================================================
+// PROVERBS IMPORTS
+// =====================================================
 
+import proverbArticle1 from "@/content/proverbs/01-wisdom-is-like-a-baobab-tree.json";
+import proverbArticle2 from "@/content/proverbs/02-if-you-want-to-go-fast-go-alone.json";
+import proverbArticle3 from "@/content/proverbs/03-a-child-not-embraced-by-the-village.json";
+import proverbArticle4 from "@/content/proverbs/04-however-long-the-night-the-dawn-will-come.json";
+import proverbArticle5 from "@/content/proverbs/05-unity-and-community-strength.json";
+import proverbArticle6 from "@/content/proverbs/06-patience-and-endurance.json";
+import proverbArticle7 from "@/content/proverbs/07-respect-for-elders-and-ancestry.json";
+import proverbArticle8 from "@/content/proverbs/08-cattle-wealth-and-responsibility.json";
+import proverbArticle9 from "@/content/proverbs/09-words-truth-and-reputation.json";
+import proverbArticle10 from "@/content/proverbs/10-the-future-belongs-to-those-who-preserve-wisdom.json";
 
+// =====================================================
+// RAW HISTORY CONTENT
+// =====================================================
 
-// ===============================
-// TRADITIONS IMPORTS
-// ===============================
-
-import tradition1 from "@/content/traditions/01-murle-clans-kidongwa-and-traditional-authority.json";
-import tradition2 from "@/content/traditions/02-murle-age-sets-buul-and-generations.json";
-import tradition3 from "@/content/traditions/03-murle-red-chiefs-alan-ci-merik-and-leadership.json";
-import tradition4 from "@/content/traditions/04-murle-birth-and-childhood-traditions.json";
-import tradition5 from "@/content/traditions/05-murle-naming-traditions.json";
-import tradition6 from "@/content/traditions/06-murle-initiation-and-coming-of-age.json";
-import tradition7 from "@/content/traditions/07-murle-marriage-customs-and-bride-wealth.json";
-import tradition8 from "@/content/traditions/08-murle-family-life-and-parenthood.json";
-import tradition9 from "@/content/traditions/09-murle-cattle-and-pastoral-traditions.json";
-import tradition10 from "@/content/traditions/10-murle-food-and-hospitality-traditions.json";
-
-import ageSets from "@/content/traditions/age-sets.json";
-import clans from "@/content/traditions/clans.json";
-import communityValues from "@/content/traditions/community-values.json";
-import familyStructure from "@/content/traditions/family-structure.json";
-import leadership from "@/content/traditions/leadership.json";
-import marriageCustoms from "@/content/traditions/marriage-customs.json";
-
-
-
-// ===============================
-// CULTURE
-// ===============================
-
-import culture1 from "@/content/culture/babi-ngerthimagil.json";
-
-
-
-// ===============================
-// STORIES
-// ===============================
-
-import story1 from "@/content/stories/the-clever-tortoise.json";
-import story2 from "@/content/stories/the-lion-and-the-drum.json";
-import story3 from "@/content/stories/why-the-river-bends.json";
-
-
-
-// ===============================
-// PROVERBS 1 - 10
-// ===============================
-
-import proverb1 from "@/content/proverbs/01-wisdom-is-like-a-baobab-tree.json";
-import proverb2 from "@/content/proverbs/02-if-you-want-to-go-fast-go-alone.json";
-import proverb3 from "@/content/proverbs/03-a-child-not-embraced-by-the-village.json";
-import proverb4 from "@/content/proverbs/04-however-long-the-night-the-dawn-will-break.json";
-import proverb5 from "@/content/proverbs/05-smooth-seas-do-not-make-skillful-sailors.json";
-
-import proverb6 from "@/content/proverbs/06-rain-does-not-fall-on-one-roof-alone.json";
-import proverb7 from "@/content/proverbs/07-one-finger-cannot-pick-up-a-pebble.json";
-import proverb8 from "@/content/proverbs/08-until-the-lion-learns-to-write.json";
-import proverb9 from "@/content/proverbs/09-when-spider-webs-unite.json";
-import proverb10 from "@/content/proverbs/10-the-best-way-to-eat-an-elephant.json";
-// ===============================
-// PROVERBS 11 - 50
-// ===============================
-
-import proverb11 from "@/content/proverbs/11-a-river-is-filled-by-many-small-streams.json";
-import proverb12 from "@/content/proverbs/12-the-axe-forgets-but-the-tree-remembers.json";
-import proverb13 from "@/content/proverbs/13-even-the-mighty-eagle-begins-as-a-small-chick.json";
-import proverb14 from "@/content/proverbs/14-do-not-call-the-forest-that-shelters-you-a-jungle.json";
-import proverb15 from "@/content/proverbs/15-he-who-learns-teaches.json";
-
-import proverb16 from "@/content/proverbs/16-no-matter-how-full-the-river-is.json";
-import proverb17 from "@/content/proverbs/17-when-there-is-no-enemy-within.json";
-import proverb18 from "@/content/proverbs/18-the-fool-speaks-the-wise-listens.json";
-import proverb19 from "@/content/proverbs/19-a-person-is-a-person-because-of-other-people.json";
-import proverb20 from "@/content/proverbs/20-the-sun-never-forgets-a-village.json";
-
-import proverb21 from "@/content/proverbs/21-the-lizard-that-jumps-from-the-high-tree.json";
-import proverb22 from "@/content/proverbs/22-a-single-bracelet-does-not-jingle.json";
-import proverb23 from "@/content/proverbs/23-a-tree-cannot-stand-without-roots.json";
-import proverb24 from "@/content/proverbs/24-knowledge-is-a-garden.json";
-import proverb25 from "@/content/proverbs/25-the-mouth-that-asks-does-not-get-lost.json";
-
-import proverb26 from "@/content/proverbs/26-a-closed-mouth-catches-no-flies.json";
-import proverb27 from "@/content/proverbs/27-the-rain-starts-with-a-single-drop.json";
-import proverb28 from "@/content/proverbs/28-the-hunter-does-not-rub-himself-with-grease.json";
-import proverb29 from "@/content/proverbs/29-the-goat-eats-where-it-is-tied.json";
-import proverb30 from "@/content/proverbs/30-the-old-woman-looks-after-the-child.json";
-
-import proverb31 from "@/content/proverbs/31-no-bird-flies-with-one-wing.json";
-import proverb32 from "@/content/proverbs/32-the-drum-sounds-because-it-is-hollow.json";
-import proverb33 from "@/content/proverbs/33-the-firewood-gatherer-knows-the-forest.json";
-import proverb34 from "@/content/proverbs/34-a-wise-man-never-knows-all.json";
-import proverb35 from "@/content/proverbs/35-the-river-never-forgets-its-source.json";
-
-import proverb36 from "@/content/proverbs/36-a-good-name-is-better-than-riches.json";
-import proverb37 from "@/content/proverbs/37-the-strongest-rope-is-made-of-many-strands.json";
-import proverb38 from "@/content/proverbs/38-patience-can-cook-a-stone.json";
-import proverb39 from "@/content/proverbs/39-the-chicken-that-scratches-finds-food.json";
-import proverb40 from "@/content/proverbs/40-no-matter-how-tall-the-tree.json";
-
-import proverb41 from "@/content/proverbs/41-the-moon-moves-slowly-but-crosses-the-sky.json";
-import proverb42 from "@/content/proverbs/42-the-elephant-does-not-feel-the-weight-of-its-tusk.json";
-import proverb43 from "@/content/proverbs/43-where-there-is-love-there-is-no-darkness.json";
-import proverb44 from "@/content/proverbs/44-the-child-who-listens-grows-wise.json";
-import proverb45 from "@/content/proverbs/45-the-wise-build-their-house-together.json";
-
-import proverb46 from "@/content/proverbs/46-the-water-pot-fills-drop-by-drop.json";
-import proverb47 from "@/content/proverbs/47-the-one-who-climbs-a-good-tree.json";
-import proverb48 from "@/content/proverbs/48-a-kind-word-opens-an-iron-door.json";
-import proverb49 from "@/content/proverbs/49-the-eye-crosses-the-river-before-the-body.json";
-import proverb50 from "@/content/proverbs/50-he-who-plants-a-tree-plants-hope.json";
-
-
-
-// ===============================
-// RAW CONTENT ARRAYS
-// ===============================
-
-
-const historyRaw:any[] = [
-
-article1, article2, article3, article4, article5,
-article6, article7, article8, article9, article10,
-article11, article12, article13, article14, article15,
-article16, article17, article18, article19, article20,
-article21, article22, article23, article24, article25
-
+const historyRaw: any[] = [
+  article1,
+  article2,
+  article3,
+  article4,
+  article5,
+  article6,
+  article7,
+  article8,
+  article9,
+  article10,
+  article11,
 ];
 
+// =====================================================
+// RAW CULTURE CONTENT
+// =====================================================
 
-
-const traditionsRaw:any[] = [
-
-tradition1,
-tradition2,
-tradition3,
-tradition4,
-tradition5,
-tradition6,
-tradition7,
-tradition8,
-tradition9,
-tradition10,
-
-ageSets,
-clans,
-communityValues,
-familyStructure,
-leadership,
-marriageCustoms
-
+const cultureRaw: any[] = [
+  cultureArticle1,
+  cultureArticle2,
+  cultureArticle3,
+  cultureArticle4,
+  cultureArticle5,
+  cultureArticle6,
+  cultureArticle7,
+  cultureArticle8,
+  cultureArticle9,
+  cultureArticle10,
 ];
 
+// =====================================================
+// RAW PROVERBS CONTENT
+// =====================================================
 
-
-const cultureRaw:any[] = [
-
-culture1
-
+const proverbsRaw: any[] = [
+  proverbArticle1,
+  proverbArticle2,
+  proverbArticle3,
+  proverbArticle4,
+  proverbArticle5,
+  proverbArticle6,
+  proverbArticle7,
+  proverbArticle8,
+  proverbArticle9,
+  proverbArticle10,
 ];
 
-
-
-const storiesRaw:any[] = [
-
-story1,
-story2,
-story3
-
-];
-
-
-
-const proverbsRaw:any[] = [
-
-proverb1,
-proverb2,
-proverb3,
-proverb4,
-proverb5,
-proverb6,
-proverb7,
-proverb8,
-proverb9,
-proverb10,
-
-proverb11,
-proverb12,
-proverb13,
-proverb14,
-proverb15,
-proverb16,
-proverb17,
-proverb18,
-proverb19,
-proverb20,
-
-proverb21,
-proverb22,
-proverb23,
-proverb24,
-proverb25,
-proverb26,
-proverb27,
-proverb28,
-proverb29,
-proverb30,
-
-proverb31,
-proverb32,
-proverb33,
-proverb34,
-proverb35,
-proverb36,
-proverb37,
-proverb38,
-proverb39,
-proverb40,
-
-proverb41,
-proverb42,
-proverb43,
-proverb44,
-proverb45,
-proverb46,
-proverb47,
-proverb48,
-proverb49,
-proverb50
-
-];
-// ===============================
+// =====================================================
 // FORMAT ARTICLE
-// ===============================
-
+// =====================================================
 
 function formatArticle(
-  item:any,
-  index:number,
-  category:string
-){
+  item: any,
+  index: number,
+  category: string
+): any {
+  const fallbackId = `${category}-${index + 1}`;
 
   return {
-
     ...item,
 
-
-    id:String(
-      item.id ??
-      item.slug ??
-      `${category}-${index + 1}`
+    id: String(
+      item?.id ??
+      item?.slug ??
+      fallbackId
     ),
 
-
-    slug:
-      item.slug ??
-      String(
-        item.id ??
-        `${category}-${index + 1}`
-      ),
-
+    slug: String(
+      item?.slug ??
+      item?.id ??
+      fallbackId
+    ),
 
     category,
 
+    title: String(
+      item?.title ??
+      "Untitled Article"
+    ),
 
-    title:
-      item.title ??
-      "Untitled Article",
-
-
-    subtitle:
-      item.subtitle ??
-      "",
-
+    subtitle: String(
+      item?.subtitle ??
+      ""
+    ),
 
     body:
-      item.body ??
-      item.content ??
-      item.description ??
-      item.text ??
-      item.meaning ??
+      item?.body ??
+      item?.content ??
+      item?.description ??
+      item?.text ??
       "",
 
-
-    summary:
-      item.summary ??
-      item.description ??
-      "",
-
+    summary: String(
+      item?.summary ??
+      item?.description ??
+      item?.subtitle ??
+      ""
+    ),
 
     image:
-      item.image ??
+      item?.image ??
       null,
 
+    author: String(
+      item?.author ??
+      "Murle Connect"
+    ),
 
-    // proverb support
+    publishedAt: String(
+      item?.publishedAt ??
+      ""
+    ),
 
-    murle:
-      item.murle ??
-      item.proverb ??
-      item.original ??
-      "",
-
-
-    english:
-      item.english ??
-      item.translation ??
-      item.meaning ??
-      "",
-
-
-    explanation:
-      item.explanation ??
-      item.meaning ??
-      "",
-
-
-    author:
-      item.author ??
-      "Murle Connect",
-
+    tags: Array.isArray(item?.tags)
+      ? item.tags
+      : [],
 
     featured:
-      item.featured ??
-      false
+      item?.featured === true,
 
+    nextArticle:
+      item?.nextArticle ??
+      null,
   };
-
 }
 
-
-
-// ===============================
-// CREATE ARTICLES
-// ===============================
-
-
-export const historyArticles =
-
-historyRaw.map(
-
-(item,index)=>
-
-formatArticle(
-  item,
-  index,
-  "history"
-)
-
-);
-
-
-
-export const traditionArticles =
-
-traditionsRaw.map(
-
-(item,index)=>
-
-formatArticle(
-  item,
-  index,
-  "traditions"
-)
-
-);
-
-
-
-export const cultureArticles =
-
-cultureRaw.map(
-
-(item,index)=>
-
-formatArticle(
-  item,
-  index,
-  "culture"
-)
-
-);
-
-
-
-export const storyArticles =
-
-storiesRaw.map(
-
-(item,index)=>
-
-formatArticle(
-  item,
-  index,
-  "stories"
-)
-
-);
-
-
-
-export const proverbArticles =
-
-proverbsRaw.map(
-
-(item,index)=>
-
-formatArticle(
-  item,
-  index,
-  "proverbs"
-)
-
-);
-
-
-
-// ===============================
-// ALL CONTENT
-// ===============================
-
-
-export const allArticles = [
-
-...historyArticles,
-
-...traditionArticles,
-
-...cultureArticles,
-
-...storyArticles,
-
-...proverbArticles
-
-];
-
-// ===============================
-// GET ALL ARTICLES
-// ===============================
-
-
-export function getAllArticles(){
-
-  return allArticles;
-
-}
-
-
-
-// ===============================
-// CATEGORY FILTER
-// ===============================
-
-
-export function getArticles(
-  category?:string
-){
-
-  if(!category){
-
-    return allArticles;
-
-  }
-
-
-  return allArticles.filter(
-
-    article =>
-
-    article.category
-    ?.toLowerCase()
-    ===
-    category.toLowerCase()
-
+// =====================================================
+// HISTORY ARTICLES
+// =====================================================
+
+export const historyArticles: any[] =
+  historyRaw.map(
+    (item, index) =>
+      formatArticle(
+        item,
+        index,
+        "history"
+      )
   );
 
+// =====================================================
+// CULTURE ARTICLES
+// =====================================================
+
+export const cultureArticles: any[] =
+  cultureRaw.map(
+    (item, index) =>
+      formatArticle(
+        item,
+        index,
+        "culture"
+      )
+  );
+
+// =====================================================
+// PROVERBS ARTICLES
+// =====================================================
+
+export const proverbArticles: any[] =
+  proverbsRaw.map(
+    (item, index) =>
+      formatArticle(
+        item,
+        index,
+        "proverbs"
+      )
+  );
+
+// =====================================================
+// ALL ARTICLES
+// =====================================================
+
+export const allArticles: any[] = [
+  ...historyArticles,
+  ...cultureArticles,
+  ...proverbArticles,
+];
+
+// =====================================================
+// GET ALL ARTICLES
+// =====================================================
+
+export function getAllArticles(): any[] {
+  return allArticles;
 }
 
+// =====================================================
+// GET ARTICLES BY CATEGORY
+// =====================================================
 
+export function getArticles(
+  category?: string
+): any[] {
+  if (!category) {
+    return allArticles;
+  }
 
+  const normalizedCategory =
+    category.trim().toLowerCase();
+
+  return allArticles.filter(
+    (article: any) =>
+      String(article.category)
+        .toLowerCase() ===
+      normalizedCategory
+  );
+}
 
 export function getArticlesByCategory(
-  category:string
-){
-
+  category: string
+): any[] {
   return getArticles(category);
-
 }
 
-
-
-// ===============================
+// =====================================================
 // HISTORY
-// ===============================
+// =====================================================
 
-
-export function getHistoryArticles(){
-
+export function getHistoryArticles(): any[] {
   return historyArticles;
-
 }
 
-
-
-// ===============================
-// TRADITIONS
-// ===============================
-
-
-export function getTraditionArticles(){
-
-  return traditionArticles;
-
-}
-
-
-
-export function getTraditions(){
-
-  return traditionArticles;
-
-}
-
-
-
-// ===============================
+// =====================================================
 // CULTURE
-// ===============================
+// =====================================================
 
-
-export function getCultureArticles(){
-
+export function getCultureArticles(): any[] {
   return cultureArticles;
-
 }
 
-
-
-export function getCultureById(
-id:string
-){
-
-return cultureArticles.find(
-
-item =>
-
-String(item.id)
-===
-String(id)
-
-||
-
-String(item.slug)
-===
-String(id)
-
-);
-
-}
-
-
-
-// ===============================
-// STORIES
-// ===============================
-
-
-export function getStories(){
-
-  return storyArticles;
-
-}
-
-
-
-export function getStoryById(
-id:string
-){
-
-return storyArticles.find(
-
-item =>
-
-String(item.id)
-===
-String(id)
-
-||
-
-String(item.slug)
-===
-String(id)
-
-);
-
-}
-
-
-
-// ===============================
+// =====================================================
 // PROVERBS
-// ===============================
+// =====================================================
 
-
-export function getProverbs(){
-
+export function getProverbs(): any[] {
   return proverbArticles;
-
 }
 
-
-
-export function getProverbArticles(){
-
+export function getPopularProverbs(): any[] {
   return proverbArticles;
-
 }
 
+// =====================================================
+// GET ARTICLE BY ID
+// =====================================================
 
+export function getHistoryArticleById(
+  id: string
+): any {
+  const normalizedId = String(id);
 
-export function getPopularProverbs(
-limit:number = 10
-){
-
-return proverbArticles.slice(
-
-0,
-
-limit
-
-);
-
+  return historyArticles.find(
+    (article: any) =>
+      String(article.id) === normalizedId ||
+      String(article.slug) === normalizedId
+  );
 }
 
+export function getCultureArticleById(
+  id: string
+): any {
+  const normalizedId = String(id);
 
+  return cultureArticles.find(
+    (article: any) =>
+      String(article.id) === normalizedId ||
+      String(article.slug) === normalizedId
+  );
+}
 
 export function getProverbById(
-id:string
-){
+  id: string
+): any {
+  const normalizedId = String(id);
 
-return proverbArticles.find(
-
-item =>
-
-String(item.id)
-===
-String(id)
-
-||
-
-String(item.slug)
-===
-String(id)
-
-);
-
+  return proverbArticles.find(
+    (article: any) =>
+      String(article.id) === normalizedId ||
+      String(article.slug) === normalizedId
+  );
 }
-
-
-
-
-// ===============================
-// ARTICLE DETAILS
-// ===============================
-
 
 export function getArticleById(
-id:string
-){
+  id: string
+): any {
+  const normalizedId = String(id);
 
-return allArticles.find(
-
-article =>
-
-
-String(article.id)
-===
-String(id)
-
-
-||
-
-String(article.slug)
-===
-String(id)
-
-
-);
-
+  return allArticles.find(
+    (article: any) =>
+      String(article.id) === normalizedId ||
+      String(article.slug) === normalizedId
+  );
 }
 
-
-
-
-// ===============================
+// =====================================================
 // SEARCH
-// ===============================
-
+// =====================================================
 
 export function searchArticles(
-query:string
-){
+  query: string
+): any[] {
+  const q = String(query ?? "")
+    .trim()
+    .toLowerCase();
 
-const q =
+  if (!q) {
+    return allArticles;
+  }
 
-query
-.toLowerCase()
-.trim();
+  return allArticles.filter(
+    (article: any) => {
+      const searchableText = [
+        article.title,
+        article.subtitle,
+        article.summary,
+        article.author,
+        JSON.stringify(article.body ?? ""),
+        JSON.stringify(article.tags ?? []),
+      ]
+        .join(" ")
+        .toLowerCase();
 
-
-
-return allArticles.filter(
-
-article => {
-
-
-const title =
-
-String(article.title ?? "")
-.toLowerCase();
-
-
-
-const body =
-
-String(article.body ?? "")
-.toLowerCase();
-
-
-
-const summary =
-
-String(article.summary ?? "")
-.toLowerCase();
-
-
-
-return (
-
-title.includes(q)
-
-||
-
-body.includes(q)
-
-||
-
-summary.includes(q)
-
-);
-
-
+      return searchableText.includes(q);
+    }
+  );
 }
 
-);
-
-
+export function searchAll(
+  query: string
+): any[] {
+  return searchArticles(query);
 }
 
-
-
-
-// ===============================
+// =====================================================
 // FEATURED
-// ===============================
+// =====================================================
 
-
-export function getFeaturedArticle(){
-
-return (
-
-allArticles.find(
-
-article =>
-
-article.featured === true
-
-)
-
-??
-
-allArticles[0]
-
-);
-
+export function getFeaturedArticle(): any {
+  return (
+    allArticles.find(
+      (article: any) =>
+        article.featured === true
+    ) ??
+    allArticles[0]
+  );
 }
 
-
-
-
-// ===============================
-// LATEST
-// ===============================
-
+// =====================================================
+// LATEST ARTICLES
+// =====================================================
 
 export function getLatestStories(
-limit:number = 10
-){
-
-return allArticles.slice(
-
-0,
-
-limit
-
-);
-
+  limit: number = 10
+): any[] {
+  return allArticles.slice(
+    0,
+    limit
+  );
 }
 
+// =====================================================
+// TRADITIONS COMPATIBILITY
+// =====================================================
 
+export function getTraditionArticles(): any[] {
+  return getArticles("traditions");
+}
 
-
-// ===============================
+// =====================================================
 // DEBUG
-// ===============================
-
+// =====================================================
 
 console.log(
-
-"Murle Connect Loaded:",
-
-allArticles.length,
-
-"articles"
-
+  "================================="
 );
 
-
 console.log(
-
-"Proverbs:",
-
-proverbArticles.length
-
+  "Murle Connect Content Loaded"
 );
 
-
 console.log(
-
-"Stories:",
-
-storyArticles.length
-
+  "History Articles:",
+  historyArticles.length
 );
 
+console.log(
+  "Culture Articles:",
+  cultureArticles.length
+);
 
 console.log(
+  "Proverb Articles:",
+  proverbArticles.length
+);
 
-"Culture:",
+console.log(
+  "Total Articles:",
+  allArticles.length
+);
 
-cultureArticles.length
-
+console.log(
+  "================================="
 );

@@ -19,10 +19,12 @@ import {
 
 interface ProverbCardProps {
   proverb: any;
+  compact?: boolean;
 }
 
 export function ProverbCard({
   proverb,
+  compact = false,
 }: ProverbCardProps) {
   const theme = useAppTheme();
   const router = useRouter();
@@ -45,6 +47,7 @@ export function ProverbCard({
         padded={false}
         style={[
           styles.card,
+          compact && styles.compactCard,
           {
             backgroundColor: theme.surfaceAlt,
             borderColor: theme.border,
@@ -54,6 +57,7 @@ export function ProverbCard({
         <View
           style={[
             styles.iconBox,
+            compact && styles.compactIconBox,
             {
               backgroundColor: theme.primary + "18",
             },
@@ -61,7 +65,7 @@ export function ProverbCard({
         >
           <Ionicons
             name="book-outline"
-            size={25}
+            size={compact ? 21 : 25}
             color={theme.primary}
           />
         </View>
@@ -79,9 +83,10 @@ export function ProverbCard({
           </Text>
 
           <Text
-            numberOfLines={2}
+            numberOfLines={compact ? 1 : 2}
             style={[
               styles.title,
+              compact && styles.compactTitle,
               {
                 color: theme.text,
               },
@@ -92,9 +97,10 @@ export function ProverbCard({
 
           {murle ? (
             <Text
-              numberOfLines={2}
+              numberOfLines={compact ? 1 : 2}
               style={[
                 styles.murle,
+                compact && styles.compactMurle,
                 {
                   color: theme.text,
                 },
@@ -104,7 +110,7 @@ export function ProverbCard({
             </Text>
           ) : null}
 
-          {english ? (
+          {!compact && english ? (
             <Text
               numberOfLines={2}
               style={[
@@ -118,24 +124,26 @@ export function ProverbCard({
             </Text>
           ) : null}
 
-          <View style={styles.footer}>
-            <Text
-              style={[
-                styles.readText,
-                {
-                  color: theme.primary,
-                },
-              ]}
-            >
-              Read proverb
-            </Text>
+          {!compact && (
+            <View style={styles.footer}>
+              <Text
+                style={[
+                  styles.readText,
+                  {
+                    color: theme.primary,
+                  },
+                ]}
+              >
+                Read proverb
+              </Text>
 
-            <Ionicons
-              name="arrow-forward"
-              size={17}
-              color={theme.primary}
-            />
-          </View>
+              <Ionicons
+                name="arrow-forward"
+                size={17}
+                color={theme.primary}
+              />
+            </View>
+          )}
         </View>
       </Card>
     </TouchableOpacity>
@@ -151,6 +159,10 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
+  compactCard: {
+    marginBottom: spacing.sm,
+  },
+
   iconBox: {
     width: 72,
     height: 72,
@@ -159,6 +171,14 @@ const styles = StyleSheet.create({
     borderRadius: radii.lg,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  compactIconBox: {
+    width: 54,
+    height: 54,
+    marginLeft: spacing.sm,
+    marginTop: spacing.sm,
+    borderRadius: radii.md,
   },
 
   body: {
@@ -182,12 +202,23 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
 
+  compactTitle: {
+    fontSize: 15,
+    marginBottom: 3,
+  },
+
   murle: {
     fontSize: 17,
     lineHeight: 25,
     fontWeight: "600",
     fontStyle: "italic",
     marginBottom: 5,
+  },
+
+  compactMurle: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 0,
   },
 
   english: {

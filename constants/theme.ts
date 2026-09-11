@@ -1,4 +1,4 @@
-export const palette = {
+﻿export const palette = {
   clay: "#C9713D",
   clayDark: "#A85A2E",
   ochre: "#E4A94F",
@@ -11,8 +11,24 @@ export const palette = {
   slate: "#8B8578",
 };
 
-export const lightTheme = {
-  mode: "light" as const,
+export interface Theme {
+  mode: "light" | "dark";
+  background: string;
+  surface: string;
+  surfaceAlt: string;
+  text: string;
+  textMuted: string;
+  primary: string;
+  primaryDark: string;
+  accent: string;
+  secondary: string;
+  border: string;
+  shadow: string;
+  tabBarBackground: string;
+}
+
+export const lightTheme: Theme = {
+  mode: "light",
   background: palette.cream,
   surface: palette.white,
   surfaceAlt: palette.sand,
@@ -27,8 +43,8 @@ export const lightTheme = {
   tabBarBackground: "rgba(255,255,255,0.92)",
 };
 
-export const darkTheme = {
-  mode: "dark" as const,
+export const darkTheme: Theme = {
+  mode: "dark",
   background: palette.charcoal,
   surface: "#211F1A",
   surfaceAlt: "#2A2822",
@@ -42,8 +58,6 @@ export const darkTheme = {
   shadow: "rgba(0,0,0,0.4)",
   tabBarBackground: "rgba(23,22,19,0.92)",
 };
-
-export type Theme = typeof lightTheme;
 
 export const radii = {
   sm: 10,
